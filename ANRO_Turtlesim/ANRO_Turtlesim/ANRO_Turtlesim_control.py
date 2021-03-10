@@ -15,21 +15,32 @@ class MinimalPublisher(rclpy.node.Node):
         self.publisher_ = self.create_publisher(geometry_msgs.msg.Twist, '/turtle1/cmd_vel', 10)
         timer_period = 0.02  # seconds
         self.timer = self.create_timer(timer_period, self.timer_callback)
-        self.declare_parameter('my_parameter', 'c')
+        self.declare_parameter('forward', 'w')
+        self.declare_parameter('backward', 's')
+        self.declare_parameter('left', 'd')
+        self.declare_parameter('right', 'a')
         self.i = 0
 
-    def timer_callback(self):        
+    def timer_callback(self):
+        forward = self.get_parameter('forward').get_parameter_value().string_value
+        backward = self.get_parameter('backward').get_parameter_value().string_value
+        left = self.get_parameter('left').get_parameter_value().string_value
+        right = self.get_parameter('right').get_parameter_value().string_value
         msg = geometry_msgs.msg.Twist()
-        
         key = getch.getch()
-        my_param = self.get_parameter('my_parameter').get_parameter_value().string_value
-        if  key == my_param:
+        
+        if  key == forward:
             msg.linear.x = 1.0
-            msg.angular.z = 0.6
-        else:
-            msg.linear.x = 0.0
             msg.angular.z = 0.0
-            self.get_logger().info('key code: %d' % ord(key))
+        elif key == backward:
+            msg.linear.x = -1.0
+            msg.angular.z = 0.0
+        elif key == left:
+            msg.linear.x = 0.0
+            msg.angular.z = -1.0
+        elif key == right:
+            msg.linear.x = 0.0
+            msg.angular.z = 1.0
         
         #my_new_param = rclpy.parameter.Parameter(
         #    'my_parameter',
