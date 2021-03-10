@@ -11,7 +11,7 @@ import geometry_msgs.msg #import Twist
 class MinimalPublisher(rclpy.node.Node):
 
     def __init__(self):
-        super().__init__('ANRO_Turtlesim_control')
+        super().__init__('anro_turtlesim_control')
         self.publisher_ = self.create_publisher(geometry_msgs.msg.Twist, '/turtle1/cmd_vel', 10)
         timer_period = 0.02  # seconds
         self.timer = self.create_timer(timer_period, self.timer_callback)
@@ -56,8 +56,10 @@ class MinimalPublisher(rclpy.node.Node):
 def main(args=None):
     rclpy.init(args=args)
     minimal_publisher = MinimalPublisher()
-    rclpy.spin(minimal_publisher)
-
+    try:
+        rclpy.spin(minimal_publisher)
+    except KeyboardInterrupt:
+        minimal_publisher.get_logger().info("Closing anro_turtlesim_control")
     # Destroy the node explicitly
     # (optional - otherwise it will be done automatically
     # when the garbage collector destroys the node object)
