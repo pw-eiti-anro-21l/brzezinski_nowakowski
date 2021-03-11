@@ -1,6 +1,6 @@
 from setuptools import setup
 
-package_name = 'ANRO_Turtlesim'
+package_name = 'anro_turtlesim'
 
 setup(
     name=package_name,
@@ -20,7 +20,7 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'ANRO_Turtlesim_control = ANRO_Turtlesim.ANRO_Turtlesim_control:main'
+            'turtlesim_control = anro_turtlesim.turtlesim_control:main'
         ],
     },
 )
