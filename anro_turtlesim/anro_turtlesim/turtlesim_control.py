@@ -1,6 +1,6 @@
 """Similar to turtle_teleop_key, but control keys are set with parameters."""
 
-from ANRO_Turtlesim.kbhit import KBHit
+from anro_turtlesim.kbhit import KBHit
 
 import geometry_msgs.msg
 
