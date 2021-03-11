@@ -17,11 +17,11 @@ def generate_launch_description():
         #     output='screen'
         # )
         Node(
-            package='turtlesim',
-            executable='turtle_teleop_key',
+            package='anro_turtlesim',
+            executable='turtlesim_control',
             name='control',
             # output='screen',
-            prefix=['xterm -e ']
+            prefix=['gnome-terminal -- ']
         )
     ])
 # <launch>
