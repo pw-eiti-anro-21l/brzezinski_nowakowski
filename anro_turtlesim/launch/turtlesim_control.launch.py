@@ -21,7 +21,7 @@ def generate_launch_description():
             executable='turtlesim_control',
             name='control',
             # output='screen',
-            prefix=['gnome-terminal -- ']
+            prefix=['gnome-terminal --disable-factory -- ']
         )
     ])
 # <launch>
