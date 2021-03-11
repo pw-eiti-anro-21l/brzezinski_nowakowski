@@ -1,21 +1,25 @@
-from ANRO_Turtlesim.kbhit import *
+"""Similar to turtle_teleop_key, but control keys are set with parameters."""
+
+from ANRO_Turtlesim.kbhit import KBHit
+
+import geometry_msgs.msg
 
 import rclpy
 import rclpy.node
-from rclpy.exceptions import ParameterNotDeclaredException
-from rcl_interfaces.msg import ParameterType
-
-from std_msgs.msg import String
-import geometry_msgs.msg #import Twist
-
+# from rclpy.exceptions import ParameterNotDeclaredException
+# from rcl_interfaces.msg import ParameterType
 
 kb = KBHit()
 
-class MinimalPublisher(rclpy.node.Node):
+
+class TurtlesimControl(rclpy.node.Node):
+    """Node allowing to control turtlesim with keys set in parameters."""
 
     def __init__(self):
+        """Initilize turtlesim_control node."""
         super().__init__('anro_turtlesim_control')
-        self.publisher_ = self.create_publisher(geometry_msgs.msg.Twist, '/turtle1/cmd_vel', 10)
+        self.publisher_ = self.create_publisher(
+            geometry_msgs.msg.Twist, '/turtle1/cmd_vel', 10)
         timer_period = 0.5  # seconds
         self.timer = self.create_timer(timer_period, self.timer_callback)
         self.declare_parameter('forward', 'w')
@@ -25,14 +29,17 @@ class MinimalPublisher(rclpy.node.Node):
         self.i = 0
 
     def timer_callback(self):
-        forward = self.get_parameter('forward').get_parameter_value().string_value
-        backward = self.get_parameter('backward').get_parameter_value().string_value
+        """Handle turtlesim_control loop."""
+        forward = \
+            self.get_parameter('forward').get_parameter_value().string_value
+        backward = \
+            self.get_parameter('backward').get_parameter_value().string_value
         left = self.get_parameter('left').get_parameter_value().string_value
         right = self.get_parameter('right').get_parameter_value().string_value
         msg = geometry_msgs.msg.Twist()
-        
+
         key = kb.purging_getch()
-        if  key == forward:
+        if key == forward:
             msg.linear.x = 1.0
             msg.angular.z = 0.0
         elif key == backward:
@@ -47,29 +54,27 @@ class MinimalPublisher(rclpy.node.Node):
         else:
             msg.linear.x = 0.0
             msg.angular.z = 0.0
-        
-        #my_new_param = rclpy.parameter.Parameter(
-        #    'my_parameter',
-        #    rclpy.Parameter.Type.STRING,
-        #    'c'
-        #)
-        #all_new_parameters = [my_new_param]
-        #self.set_parameters(all_new_parameters)
+
+        # my_new_param = rclpy.parameter.Parameter(
+        #     'my_parameter',
+        #     rclpy.Parameter.Type.STRING,
+        #     'c'
+        # )
+        # all_new_parameters = [my_new_param]
+        # self.set_parameters(all_new_parameters)
         self.publisher_.publish(msg)
         self.i += 1
 
 
 def main(args=None):
+    """Run turtlesim_control."""
     rclpy.init(args=args)
-    minimal_publisher = MinimalPublisher()
+    turtlesim_control = TurtlesimControl()
     try:
-        rclpy.spin(minimal_publisher)
+        rclpy.spin(turtlesim_control)
     except KeyboardInterrupt:
-        minimal_publisher.get_logger().info("Closing anro_turtlesim_control")
-    # Destroy the node explicitly
-    # (optional - otherwise it will be done automatically
-    # when the garbage collector destroys the node object)
-    minimal_publisher.destroy_node()
+        turtlesim_control.get_logger().info('Closing anro_turtlesim_control')
+    turtlesim_control.destroy_node()
     rclpy.shutdown()
 
 
