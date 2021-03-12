@@ -20,12 +20,13 @@ class TurtlesimControl(rclpy.node.Node):
         super().__init__('anro_turtlesim_control')
         self.publisher_ = self.create_publisher(
             geometry_msgs.msg.Twist, '/turtle1/cmd_vel', 10)
-        timer_period = 0.5  # seconds
+        timer_period = 0.1  # seconds
         self.timer = self.create_timer(timer_period, self.timer_callback)
         self.declare_parameter('forward', 'w')
         self.declare_parameter('backward', 's')
         self.declare_parameter('left', 'd')
         self.declare_parameter('right', 'a')
+        self.declare_parameter('stop', ' ')
         self.i = 0
 
     def timer_callback(self):
@@ -36,6 +37,7 @@ class TurtlesimControl(rclpy.node.Node):
             self.get_parameter('backward').get_parameter_value().string_value
         left = self.get_parameter('left').get_parameter_value().string_value
         right = self.get_parameter('right').get_parameter_value().string_value
+        stop = self.get_parameter('stop').get_parameter_value().string_value
         msg = geometry_msgs.msg.Twist()
 
         key = kb.purging_getch()
@@ -51,7 +53,7 @@ class TurtlesimControl(rclpy.node.Node):
         elif key == right:
             msg.linear.x = 0.0
             msg.angular.z = 1.0
-        else:
+        elif key == stop:
             msg.linear.x = 0.0
             msg.angular.z = 0.0
 
