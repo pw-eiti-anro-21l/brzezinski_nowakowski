@@ -22,12 +22,13 @@ class TurtlesimControl(rclpy.node.Node):
             geometry_msgs.msg.Twist, '/turtle1/cmd_vel', 10)
         timer_period = 0.1  # seconds
         self.timer = self.create_timer(timer_period, self.timer_callback)
-        self.declare_parameter('forward', 'w')
-        self.declare_parameter('backward', 's')
-        self.declare_parameter('left', 'd')
-        self.declare_parameter('right', 'a')
+        self.declare_parameter('forward', 'y')
+        self.declare_parameter('backward', 'h')
+        self.declare_parameter('left', 'g')
+        self.declare_parameter('right', 'j')
         self.declare_parameter('stop', ' ')
         self.i = 0
+        
 
     def timer_callback(self):
         """Handle turtlesim_control loop."""
@@ -39,9 +40,12 @@ class TurtlesimControl(rclpy.node.Node):
         right = self.get_parameter('right').get_parameter_value().string_value
         stop = self.get_parameter('stop').get_parameter_value().string_value
         msg = geometry_msgs.msg.Twist()
-
+        
         key = kb.purging_getch()
-        if key == forward:
+        if key == stop:
+            msg.linear.x = 0.0
+            msg.angular.z = 0.0
+        elif key == forward:
             msg.linear.x = 1.0
             msg.angular.z = 0.0
         elif key == backward:
@@ -49,29 +53,43 @@ class TurtlesimControl(rclpy.node.Node):
             msg.angular.z = 0.0
         elif key == left:
             msg.linear.x = 0.0
-            msg.angular.z = -1.0
+            msg.angular.z = 1.0
         elif key == right:
             msg.linear.x = 0.0
-            msg.angular.z = 1.0
+            msg.angular.z = -1.0
         elif key == stop:
             msg.linear.x = 0.0
             msg.angular.z = 0.0
-
-        # my_new_param = rclpy.parameter.Parameter(
-        #     'my_parameter',
-        #     rclpy.Parameter.Type.STRING,
-        #     'c'
-        # )
-        # all_new_parameters = [my_new_param]
-        # self.set_parameters(all_new_parameters)
+        elif key == chr(0):
+            self.i += 1
+            return
         self.publisher_.publish(msg)
         self.i += 1
+
+
+    def introduction(self):
+        print("Hello world!")
+        print("Below you can see how to control you turtle:")
+        print("Forward: " + \
+            self.get_parameter('forward').get_parameter_value().string_value)
+        print("Backward: " + \
+            self.get_parameter('backward').get_parameter_value().string_value)
+        print("Left: " + \
+            self.get_parameter('left').get_parameter_value().string_value)
+        print("Right: " + \
+            self.get_parameter('right').get_parameter_value().string_value)
+        if self.get_parameter('stop').get_parameter_value().string_value == ' ':
+            print("Stop: space")
+        else:
+            print("Stop: " + \
+                self.get_parameter('stop').get_parameter_value().string_value)
 
 
 def main(args=None):
     """Run turtlesim_control."""
     rclpy.init(args=args)
     turtlesim_control = TurtlesimControl()
+    turtlesim_control.introduction()
     try:
         rclpy.spin(turtlesim_control)
     except KeyboardInterrupt:
