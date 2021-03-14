@@ -20,7 +20,7 @@ class TurtlesimControl(rclpy.node.Node):
         super().__init__('anro_turtlesim_control')
         self.publisher_ = self.create_publisher(
             geometry_msgs.msg.Twist, '/turtle1/cmd_vel', 10)
-        timer_period = 0.1  # seconds
+        timer_period = 0.04  # seconds
         self.timer = self.create_timer(timer_period, self.timer_callback)
         self.declare_parameter('forward', 'y')
         self.declare_parameter('backward', 'h')
@@ -28,7 +28,6 @@ class TurtlesimControl(rclpy.node.Node):
         self.declare_parameter('right', 'j')
         self.declare_parameter('stop', ' ')
         self.i = 0
-        
 
     def timer_callback(self):
         """Handle turtlesim_control loop."""
@@ -40,7 +39,7 @@ class TurtlesimControl(rclpy.node.Node):
         right = self.get_parameter('right').get_parameter_value().string_value
         stop = self.get_parameter('stop').get_parameter_value().string_value
         msg = geometry_msgs.msg.Twist()
-        
+
         key = kb.purging_getch()
         if key == stop:
             msg.linear.x = 0.0
@@ -66,23 +65,35 @@ class TurtlesimControl(rclpy.node.Node):
         self.publisher_.publish(msg)
         self.i += 1
 
-
     def introduction(self):
-        print("Hello world!")
-        print("Below you can see how to control you turtle:")
-        print("Forward: " + \
-            self.get_parameter('forward').get_parameter_value().string_value)
-        print("Backward: " + \
-            self.get_parameter('backward').get_parameter_value().string_value)
-        print("Left: " + \
-            self.get_parameter('left').get_parameter_value().string_value)
-        print("Right: " + \
-            self.get_parameter('right').get_parameter_value().string_value)
-        if self.get_parameter('stop').get_parameter_value().string_value == ' ':
-            print("Stop: space")
+        """Print instructions for user."""
+        print('Hello world!')
+        print('Below you can see how to control you turtle:')
+        print(
+            'Forward: ',
+            self.get_parameter('forward').get_parameter_value().string_value
+            )
+        print(
+            'Backward: ',
+            self.get_parameter('backward').get_parameter_value().string_value
+            )
+        print(
+            'Left: ',
+            self.get_parameter('left').get_parameter_value().string_value
+            )
+        print(
+            'Right: ',
+            self.get_parameter('right').get_parameter_value().string_value
+            )
+        if(
+          self.get_parameter('stop').get_parameter_value().string_value == ' '
+          ):
+            print('Stop: space')
         else:
-            print("Stop: " + \
-                self.get_parameter('stop').get_parameter_value().string_value)
+            print(
+                'Stop: ',
+                self.get_parameter('stop').get_parameter_value().string_value
+                )
 
 
 def main(args=None):
