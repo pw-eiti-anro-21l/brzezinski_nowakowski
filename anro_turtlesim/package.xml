@@ -2,16 +2,19 @@
 <?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
 <package format="3">
   <name>anro_turtlesim</name>
-  <version>0.0.0</version>
-  <description>TODO: Package description</description>
-  <maintainer email="gabriel@todo.todo">gabriel</maintainer>
-  <license>TODO: License declaration</license>
-
+  <version>1.0.0</version>
+  <description>Simple node for controling turtlesim with keyboard</description>
+  <maintainer email="gabrysbrzezinski@gmail.com">Gabriel Brzeziński</maintainer>
+  <maintainer email="casperus99@wp.pl">Kacper Nowakowski</maintainer>
+  <license>MIT License</license>
+  <depend>rclpy</depend>
+  <depend>geometry_msgs</depend>
+  <!-- <exec_depend>gnome-terminal</exec_depend> -->
+  <!--gnome-terminal lacks rosdep definition, so it has to be manually installed-->
   <test_depend>ament_copyright</test_depend>
   <test_depend>ament_flake8</test_depend>
   <test_depend>ament_pep257</test_depend>
   <test_depend>python3-pytest</test_depend>
-
   <export>
     <build_type>ament_python</build_type>
   </export>
