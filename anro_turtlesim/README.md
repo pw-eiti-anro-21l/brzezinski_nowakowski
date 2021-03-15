@@ -8,7 +8,7 @@ ros2 run anro_turtlesim turtlesim_control
 - `turtlesim_control.launch.py`  
   Uruchamia jednocześnie node `turtlesim_node` z paczki `turtlesim` oraz w oddzielnej konsoli gnome-terminal node `turtlesim_control` z paczki `anro_turtlesim`
   ```
-  ros2 launch anro_turtlesim turtlesimm_control.launch.py
+  ros2 launch anro_turtlesim turtlesim_control.launch.py
   ```
 ## Topics
 ### Published topics
