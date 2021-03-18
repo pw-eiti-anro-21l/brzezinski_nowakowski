@@ -1,6 +1,6 @@
 """Similar to turtle_teleop_key, but control keys are set with parameters."""
 
-from anro_turtlesim.kbhit import KBHit
+import curses
 
 import geometry_msgs.msg
 
@@ -9,7 +9,7 @@ import rclpy.node
 # from rclpy.exceptions import ParameterNotDeclaredException
 # from rcl_interfaces.msg import ParameterType
 
-kb = KBHit()
+stdscr = curses.initscr()
 
 
 class TurtlesimControl(rclpy.node.Node):
@@ -40,26 +40,30 @@ class TurtlesimControl(rclpy.node.Node):
         stop = self.get_parameter('stop').get_parameter_value().string_value
         msg = geometry_msgs.msg.Twist()
 
-        key = kb.purging_getch()
-        if key == stop:
+        # key = kb.purging_getch()
+        key = next_key = stdscr.getch()
+        while next_key != -1:
+            key = next_key
+            next_key = stdscr.getch()
+        if key == ord(stop):
             msg.linear.x = 0.0
             msg.angular.z = 0.0
-        elif key == forward:
+        elif key == ord(forward):
             msg.linear.x = 1.0
             msg.angular.z = 0.0
-        elif key == backward:
+        elif key == ord(backward):
             msg.linear.x = -1.0
             msg.angular.z = 0.0
-        elif key == left:
+        elif key == ord(left):
             msg.linear.x = 0.0
             msg.angular.z = 1.0
-        elif key == right:
+        elif key == ord(right):
             msg.linear.x = 0.0
             msg.angular.z = -1.0
-        elif key == stop:
+        elif key == ord(stop):
             msg.linear.x = 0.0
             msg.angular.z = 0.0
-        elif key == chr(0):
+        elif key == -1:
             self.i += 1
             return
         self.publisher_.publish(msg)
@@ -67,32 +71,33 @@ class TurtlesimControl(rclpy.node.Node):
 
     def introduction(self):
         """Print instructions for user."""
-        print('Hello world!')
-        print('Below you can see how to control you turtle:')
-        print(
-            'Forward: ',
+        stdscr.addstr('Hello world!\n')
+        stdscr.addstr('Below you can see how to control you turtle:')
+        stdscr.addstr(
+            '\nForward: ' +
             self.get_parameter('forward').get_parameter_value().string_value
             )
-        print(
-            'Backward: ',
+        stdscr.addstr(
+            '\nBackward: ' +
             self.get_parameter('backward').get_parameter_value().string_value
             )
-        print(
-            'Left: ',
+        stdscr.addstr(
+            '\nLeft: ' +
             self.get_parameter('left').get_parameter_value().string_value
             )
-        print(
-            'Right: ',
+        stdscr.addstr(
+            '\nRight: ' +
             self.get_parameter('right').get_parameter_value().string_value
             )
         if(
           self.get_parameter('stop').get_parameter_value().string_value == ' '
           ):
-            print('Stop: space')
+            stdscr.addstr('\nStop: space\n')
         else:
-            print(
-                'Stop: ',
-                self.get_parameter('stop').get_parameter_value().string_value
+            stdscr.addstr(
+                '\nStop: ' +
+                self.get_parameter('stop').get_parameter_value().string_value +
+                '\n'
                 )
 
 
@@ -100,11 +105,18 @@ def main(args=None):
     """Run turtlesim_control."""
     rclpy.init(args=args)
     turtlesim_control = TurtlesimControl()
+    stdscr.nodelay(True)
+    curses.noecho()
+    curses.cbreak()
     turtlesim_control.introduction()
     try:
         rclpy.spin(turtlesim_control)
     except KeyboardInterrupt:
-        turtlesim_control.get_logger().info('Closing anro_turtlesim_control')
+        pass
+    curses.nocbreak()
+    curses.echo()
+    curses.endwin()
+    turtlesim_control.get_logger().info('Closing anro_turtlesim_control')
     turtlesim_control.destroy_node()
     rclpy.shutdown()
 
