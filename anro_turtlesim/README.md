@@ -10,6 +10,7 @@ ros2 run anro_turtlesim turtlesim_control
   ```
   ros2 launch anro_turtlesim turtlesim_control.launch.py
   ```
+  ![RQT_GRAPH](docs/turtlesim_control_launch_rqt_graph.png)
 ## Topics
 ### Published topics
 - `/turtle1/cmd_vel`
