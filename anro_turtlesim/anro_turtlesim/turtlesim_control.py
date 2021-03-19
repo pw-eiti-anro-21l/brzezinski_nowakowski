@@ -39,7 +39,7 @@ class TurtlesimControl(rclpy.node.Node):
         right = self.get_parameter('right').get_parameter_value().string_value
         stop = self.get_parameter('stop').get_parameter_value().string_value
         msg = geometry_msgs.msg.Twist()
-
+        self.introduction()
         # key = kb.purging_getch()
         key = next_key = stdscr.getch()
         while next_key != -1:
@@ -71,6 +71,7 @@ class TurtlesimControl(rclpy.node.Node):
 
     def introduction(self):
         """Print instructions for user."""
+        stdscr.clear()
         stdscr.addstr('Hello world!\n')
         stdscr.addstr('Below you can see how to control you turtle:')
         stdscr.addstr(
@@ -99,6 +100,7 @@ class TurtlesimControl(rclpy.node.Node):
                 self.get_parameter('stop').get_parameter_value().string_value +
                 '\n'
                 )
+        stdscr.refresh()
 
 
 def main(args=None):
