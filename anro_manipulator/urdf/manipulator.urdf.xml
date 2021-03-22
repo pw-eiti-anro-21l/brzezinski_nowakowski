@@ -26,7 +26,7 @@
   </collision>
 </link>
 
-<link name="leg1">
+<!-- <link name="leg1">
   <inertial>
     <mass value="1"/>
     <inertia ixx="100" ixy="0" ixz="0" iyy="100" iyz="0" izz="100" />
@@ -50,9 +50,9 @@
     </geometry>
     <contact_coefficients mu="0" kp="1000.0" kd="1.0"/>
   </collision>
-</link>
+</link> -->
 
-<joint name="leg1connect" type="fixed">
+<!-- <joint name="leg1connect" type="fixed">
   <origin xyz="0 .30 0" />
   <parent link="axis"/>
   <child link="leg1"/>
@@ -114,7 +114,7 @@
   </collision>
 </link>
 
-<joint name="tilt" type="revolute">
+<joint name="tilt" type="fixed">
   <parent link="axis"/>
   <child link="body"/>
   <origin xyz="0 0 0" rpy="0 0 0" />
@@ -145,7 +145,7 @@
   </collision>
 </link>
 
-<joint name="swivel" type="continuous">
+<joint name="swivel" type="fixed">
   <origin xyz="0 0 0.1" />
   <axis xyz="0 0 1" />
   <parent link="body"/>
@@ -177,7 +177,7 @@
   </collision>
 </link>
 
-<joint name="periscope" type="prismatic">
+<joint name="periscope" type="fixed">
   <origin xyz=".12 0 .15" />
   <axis xyz="0 0 1" />
   <limit upper="0" lower="-.5" effort="10" velocity="10" />
@@ -213,6 +213,6 @@
   <origin xyz="0 0 0" />
   <parent link="rod"/>
   <child link="box"/>
-</joint>
+</joint> -->
 
 </robot>
