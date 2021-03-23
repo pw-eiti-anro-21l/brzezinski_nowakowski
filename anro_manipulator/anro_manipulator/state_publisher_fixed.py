@@ -23,13 +23,9 @@ class StatePublisher(Node):
             loop_rate = self.create_rate(30)
 
             # robot state
-            i = 0
-            cyl = 0.
-            arm1 = 0.
-            arm2 = 0.
-            arm3 = 0.
             #tilt = 0.
             #tinc = degree
+            #swivel = 0.
             #angle = 0.
             #height = 0.
             #hinc = 0.005
@@ -42,18 +38,14 @@ class StatePublisher(Node):
 
             try:
                 while rclpy.ok():
-                    i += 1
-                    cyl = i*degree
-                    arm1 = 45*degree*sin(0.04*i)+15*degree
-                    arm2 = 75*degree*sin(0.05*i)+85*degree
-                    arm3 = 110*degree*sin(0.06*i)+0*degree
+                    #swivel += degree
                     rclpy.spin_once(self)
 
                     # update joint_state
                     now = self.get_clock().now()
                     joint_state.header.stamp = now.to_msg()
-                    joint_state.name = ['base-cyl', 'cyl-arm1', 'arm1-arm2', 'arm2-arm3']
-                    joint_state.position = [cyl, arm1, arm2, arm3]
+                    #joint_state.name = ['base-cyl']
+                    #joint_state.position = [swivel]
 
                     # update transform
                     # (moving in a circle with radius=2)
