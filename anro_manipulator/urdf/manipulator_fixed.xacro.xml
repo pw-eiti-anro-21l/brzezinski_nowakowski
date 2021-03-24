@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="manipulator">
-<xacro:property name="base_size_x" value="20" />
+<xacro:property name="base_size_x" value="0.2" />
   <link name="base">
     <visual>
       <origin xyz="0 0 0.05" rpy="0 0 0" />
