@@ -13,7 +13,8 @@ from ament_index_python.packages import get_package_share_directory
 package_name = 'anro_manipulator'
 
 #Finds installation path
-install_base = "".join([arg for arg_id, arg in enumerate(sys.argv) if  arg_id > 1 and sys.argv[arg_id - 1].startswith("--prefix")])
+#First by checking COLCON_PREFIX_PATH env variable then fallbacks to getting value of --prefix parameter
+install_base = os.environ['COLCON_PREFIX_PATH']  + "/" + package_name if "COLCON_PREFIX_PATH" in os.environ else "".join([arg for arg_id, arg in enumerate(sys.argv) if  arg_id > 1 and sys.argv[arg_id - 1].startswith("--prefix")])
 
 class XacroCommand(distutils.cmd.Command):
   """A custom command to compile xarco files."""
