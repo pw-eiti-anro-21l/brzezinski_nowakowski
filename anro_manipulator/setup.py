@@ -1,4 +1,5 @@
 import os
+import sys
 from glob import glob
 from setuptools import setup
 from setuptools import find_packages
@@ -10,6 +11,8 @@ import subprocess
 from ament_index_python.packages import get_package_share_directory
 
 package_name = 'anro_manipulator'
+
+install_base ='/home/gabriel/ANRO/install/anro_manipulator/'#  #'/home/gabriel/ANRO/install/anro_manipulator/'
 
 urdf_file_name = 'manipulator_fixed.urdf.xml'
 xacro_file_name = 'manipulator_fixed.xacro.xml'
@@ -39,7 +42,7 @@ class PylintCommand(distutils.cmd.Command):
     """Run command."""
     global urdf
     global xacro
-    command = ['/bin/bash', '-c', 'xacro ' + os.getcwd() +"/urdf/"+ xacro + ' -o ' + os.getcwd() + "/urdf/" + urdf]#'xacro ' + xacro + ' -o ' + urdf]
+    command = ['/bin/bash', '-c', 'xacro ' + os.getcwd() +"/urdf/"+ xacro + ' -o ' + install_base + '/share/' + package_name + "/" + urdf]#'xacro ' + xacro + ' -o ' + urdf]
     # if self.pylint_rcfile:
     #   command.append('--rcfile=%s' % self.pylint_rcfile)
     # command.append(os.getcwd())
@@ -54,6 +57,9 @@ class BuildPyCommand(setuptools.command.build_py.build_py):
   def run(self):
     global urdf
     global xacro
+    install_base = [arg[12:].strip(" ") for arg in sys.argv if arg.startswith("--prefix")]
+    self.announce(install_base, level=distutils.log.INFO)
+    install_base = install_base[0]
     urdf = urdf_file_name
     xacro = xacro_file_name
     self.run_command('pylint')
