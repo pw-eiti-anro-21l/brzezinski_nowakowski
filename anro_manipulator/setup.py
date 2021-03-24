@@ -12,10 +12,10 @@ from ament_index_python.packages import get_package_share_directory
 
 package_name = 'anro_manipulator'
 
-install_base ='/home/gabriel/ANRO/install/anro_manipulator/'#  #'/home/gabriel/ANRO/install/anro_manipulator/'
+# install_base ='/home/gabriel/ANRO/install/anro_manipulator/'#  #'/home/gabriel/ANRO/install/anro_manipulator/'
 
-urdf_file_name = 'manipulator_fixed.urdf.xml'
-xacro_file_name = 'manipulator_fixed.xacro.xml'
+install_base = [arg for arg_id, arg in enumerate(sys.argv) if  arg_id > 1 and sys.argv[arg_id - 1].startswith("--prefix")]
+install_base = "".join(install_base)
 global urdf
 global xacro
 class PylintCommand(distutils.cmd.Command):
@@ -40,28 +40,17 @@ class PylintCommand(distutils.cmd.Command):
 
   def run(self):
     """Run command."""
-    global urdf
-    global xacro
-    command = ['/bin/bash', '-c', 'xacro ' + os.getcwd() +"/urdf/"+ xacro + ' -o ' + install_base + '/share/' + package_name + "/" + urdf]#'xacro ' + xacro + ' -o ' + urdf]
-    # if self.pylint_rcfile:
-    #   command.append('--rcfile=%s' % self.pylint_rcfile)
-    # command.append(os.getcwd())
-    self.announce(
-        'Running command: %s' % str(command),
-        level=distutils.log.INFO)
+    
+    # install_base = [arg[12:].strip("") for arg in sys.argv ]# if arg.startswith("--prefix ")]
+    # install_base = install_base[0]
+    command = ['/bin/bash', '-c', 'for f in '+os.getcwd()+'/urdf/*.xacro.xml; do xacro ${f} -o ' + install_base + '/share/' + package_name + "/" + '$(basename "$f" ".xacro.xml").urdf.xml; done']#'xacro ' + xacro + ' -o ' + urdf]
+
     subprocess.check_call(command)
 
 class BuildPyCommand(setuptools.command.build_py.build_py):
   """Custom build command."""
 
   def run(self):
-    global urdf
-    global xacro
-    install_base = [arg[12:].strip(" ") for arg in sys.argv if arg.startswith("--prefix")]
-    self.announce(install_base, level=distutils.log.INFO)
-    install_base = install_base[0]
-    urdf = urdf_file_name
-    xacro = xacro_file_name
     self.run_command('pylint')
     setuptools.command.build_py.build_py.run(self)
 
