@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="manipulator">
-  <xacro:property name="base_size_x" value="0.2" />
+  <xacro:property name="base_length" value="0.1" />
+  <xacro:property name="cyl_length" value="0.1" />
+  <xacro:property name="arm1_length" value="0.8" />
+  <xacro:property name="arm2_length" value="0.7" />
+  <xacro:property name="arm3_length" value="0.3" />
+  <xacro:property name="tool_length" value="0.1" />
   <xacro:arg name="fixed" default="true"/>
   <xacro:property name="continuous" value="continuous"/>
   <xacro:if value="$(arg fixed)">
@@ -9,85 +14,85 @@
   <xacro:property name="base_size_x" value="0.2" />
   <link name="base">
     <collision>
-      <origin xyz="0 0 0.05" rpy="0 0 0" />
+      <origin xyz="0 0 ${base_length / 2}" rpy="0 0 0" />
       <geometry>
-        <box size="${base_size_x} 0.3 0.1" />
+        <box size="0.2 0.3 ${base_length}" />
       </geometry>
     </collision>
   </link>
 
   <link name="cylinder">
     <collision>
-      <origin xyz="0 0 0.05" rpy="0 0 0" />
+      <origin xyz="0 0 ${cyl_length/2}" rpy="0 0 0" />
       <geometry>
-        <cylinder length="0.1" radius="0.1" />
+        <cylinder length="${cyl_length}" radius="0.1" />
       </geometry>
     </collision>
   </link>
   <joint name="base-cyl" type="${continuous}">
     <parent link="base"/>
     <child link="cylinder"/>
-    <origin xyz="0 0 0.1"/>
+    <origin xyz="0 0 ${base_length}"/>
     <axis xyz="0 0 1"/>
   </joint>  
 
   <link name="arm1">
     <collision>
-      <origin xyz="0 0 0.4" rpy="0 0 0" />
+      <origin xyz="0 0 ${arm1_length/2}" rpy="0 0 0" />
       <geometry>
-        <box size="0.1 0.1 0.8" />
+        <box size="0.1 0.1 ${arm1_length}" />
       </geometry>
     </collision>
   </link>
   <joint name="cyl-arm1" type="${continuous}">
     <parent link="cylinder"/>
     <child link="arm1"/>
-    <origin xyz="0 0 0.1"/>
+    <origin xyz="0 0 ${cyl_length}"/>
     <axis xyz="0 1 0"/>
   </joint>
 
   <link name="arm2">
     <collision>
-      <origin xyz="0 0 0.35" rpy="0 0 0" />
+      <origin xyz="0 0 ${arm2_length/2}" rpy="0 0 0" />
       <geometry>
-        <box size="0.08 0.08 0.7" />
+        <box size="0.08 0.08 ${arm2_length}" />
       </geometry>
     </collision>
   </link>
   <joint name="arm1-arm2" type="${continuous}">
     <parent link="arm1"/>
     <child link="arm2"/>
-    <origin xyz="0 0 0.8"/>
+    <origin xyz="0 0 ${arm1_length}"/>
     <axis xyz="0 1 0"/>
   </joint>
 
   <link name="arm3">
     <collision>
-      <origin xyz="0 0 0.15" rpy="0 0 0" />
+      <origin xyz="0 0 ${arm3_length/2}" rpy="0 0 0" />
       <geometry>
-        <box size="0.06 0.06 0.3" />
+        <box size="0.06 0.06 ${arm3_length}" />
       </geometry>
     </collision>
   </link>
   <joint name="arm2-arm3" type="${continuous}">
     <parent link="arm2"/>
     <child link="arm3"/>
-    <origin xyz="0 0 0.7"/>
+    <origin xyz="0 0 ${arm2_length}"/>
     <axis xyz="0 1 0"/>
   </joint>
 
   <link name="tool">
     <collision>
-      <origin xyz="0 0 0.05" rpy="0 0 0" />
+      <origin xyz="0 0 ${tool_length/2}" rpy="0 0 0" />
       <geometry>
-        <cylinder length="0.1" radius="0.025" />
+        <cylinder length="${tool_length}" radius="0.025" />
       </geometry>
     </collision>
   </link>
   <joint name="arm3-tool" type="fixed">
     <parent link="arm3"/>
     <child link="tool"/>
-    <origin xyz="0 0 0.3"/>
+    <origin xyz="0 0 ${arm3_length}"/>
   </joint>
 
 </robot>
