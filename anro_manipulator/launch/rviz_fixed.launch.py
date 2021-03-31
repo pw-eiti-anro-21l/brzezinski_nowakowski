@@ -12,13 +12,18 @@ from launch_ros.actions import Node
 def generate_launch_description():
 
     use_sim_time = LaunchConfiguration('use_sim_time', default='false')
+    rviz_file_name = 'manipulator.rviz'
     urdf_file_name = 'manipulator.fixed.urdf.xml'
 
     print('urdf_file_name : {}'.format(urdf_file_name))
 
+    rviz = os.path.join(
+            get_package_share_directory('anro_manipulator'),
+            rviz_file_name)
     urdf = os.path.join(
             get_package_share_directory('anro_manipulator'),
             urdf_file_name)
+
     return LaunchDescription([
             DeclareLaunchArgument(
                     'use_sim_time',
@@ -32,8 +37,10 @@ def generate_launch_description():
                     parameters=[{'use_sim_time': use_sim_time}],
                     arguments=[urdf]),
             Node(
-                    package='anro_manipulator',
-                    executable='state_publisher',
-                    name='state_publisher',
-                    output='screen'),
+                    package='rviz2',
+                    executable='rviz2',
+                    name='anro_manipulator_rviz2',
+                    output='screen',
+                    parameters=[{'use_sim_time': use_sim_time}],
+                    arguments=['-d', rviz]),
     ])
