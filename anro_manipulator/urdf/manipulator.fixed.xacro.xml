@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="manipulator">
-<xacro:property name="base_size_x" value="0.2" />
+  <xacro:property name="base_size_x" value="0.2" />
   <xacro:arg name="fixed" default="true"/>
   <xacro:property name="continuous" value="continuous"/>
   <xacro:if value="$(arg fixed)">
@@ -35,6 +35,7 @@
     <parent link="base"/>
     <child link="cylinder"/>
     <origin xyz="0 0 0.1"/>
+    <axis xyz="0 0 1"/>
   </joint>  
 
   <link name="arm1">
@@ -53,6 +54,7 @@
     <parent link="cylinder"/>
     <child link="arm1"/>
     <origin xyz="0 0 0.1"/>
+    <axis xyz="0 1 0"/>
   </joint>
 
   <link name="arm2">
@@ -71,6 +73,7 @@
     <parent link="arm1"/>
     <child link="arm2"/>
     <origin xyz="0 0 0.8"/>
+    <axis xyz="0 1 0"/>
   </joint>
 
   <link name="arm3">
@@ -89,6 +92,7 @@
     <parent link="arm2"/>
     <child link="arm3"/>
     <origin xyz="0 0 0.7"/>
+    <axis xyz="0 1 0"/>
   </joint>
 
   <link name="tool">
