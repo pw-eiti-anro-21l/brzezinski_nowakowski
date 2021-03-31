@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="manipulator">
-  <xacro:property name="base_length" value="0.1" />
-  <xacro:property name="cyl_length" value="0.1" />
-  <xacro:property name="arm1_length" value="0.8" />
-  <xacro:property name="arm2_length" value="0.7" />
-  <xacro:property name="arm3_length" value="0.3" />
-  <xacro:property name="tool_length" value="0.1" />
+  <xacro:property name="base_length" value="0.006" />
+  <xacro:property name="cyl_length" value="0.0655" />
+  <xacro:property name="arm1_length" value="0.43498" />
+  <xacro:property name="arm2_length" value="0.465" />
+  <xacro:property name="arm3_length" value="0.129" />
+  <xacro:property name="tool_length" value="0.011" />
   <xacro:arg name="fixed" default="true"/>
   <xacro:property name="continuous" value="continuous"/>
   <xacro:if value="$(arg fixed)">
@@ -16,7 +16,7 @@
     <collision>
       <origin xyz="0 0 ${base_length / 2}" rpy="0 0 0" />
       <geometry>
-        <box size="0.2 0.3 ${base_length}" />
+        <box size="0.192 0.337 ${base_length}" />
       </geometry>
     </collision>
   </link>
@@ -25,7 +25,7 @@
     <collision>
       <origin xyz="0 0 ${cyl_length/2}" rpy="0 0 0" />
       <geometry>
-        <cylinder length="${cyl_length}" radius="0.1" />
+        <cylinder length="${cyl_length}" radius="0.06" />
       </geometry>
     </collision>
   </link>
@@ -40,7 +40,7 @@
     <collision>
       <origin xyz="0 0 ${arm1_length/2}" rpy="0 0 0" />
       <geometry>
-        <box size="0.1 0.1 ${arm1_length}" />
+        <box size="0.07 0.07 ${arm1_length}" />
       </geometry>
     </collision>
   </link>
@@ -55,7 +55,7 @@
     <collision>
       <origin xyz="0 0 ${arm2_length/2}" rpy="0 0 0" />
       <geometry>
-        <box size="0.08 0.08 ${arm2_length}" />
+        <box size="0.06 0.06 ${arm2_length}" />
       </geometry>
     </collision>
   </link>
@@ -70,7 +70,7 @@
     <collision>
       <origin xyz="0 0 ${arm3_length/2}" rpy="0 0 0" />
       <geometry>
-        <box size="0.06 0.06 ${arm3_length}" />
+        <box size="0.06 0.076 ${arm3_length}" />
       </geometry>
     </collision>
   </link>
@@ -85,7 +85,7 @@
     <collision>
       <origin xyz="0 0 ${tool_length/2}" rpy="0 0 0" />
       <geometry>
-        <cylinder length="${tool_length}" radius="0.025" />
+        <cylinder length="${tool_length}" radius="0.03" />
       </geometry>
     </collision>
   </link>
