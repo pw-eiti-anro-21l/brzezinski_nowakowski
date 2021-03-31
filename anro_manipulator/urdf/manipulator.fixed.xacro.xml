@@ -13,9 +13,6 @@
       <geometry>
         <box size="${base_size_x} 0.3 0.1" />
       </geometry>
-      <!-- <material name="yellow">
-        <color rgba="0 .5 .5 1" />
-      </material> -->
     </collision>
   </link>
 
@@ -25,12 +22,8 @@
       <geometry>
         <cylinder length="0.1" radius="0.1" />
       </geometry>
-      <!-- <material name="red">
-        <color rgba=".5 0 0 1" />
-      </material> -->
     </collision>
   </link>
-
   <joint name="base-cyl" type="${continuous}">
     <parent link="base"/>
     <child link="cylinder"/>
@@ -44,12 +37,8 @@
       <geometry>
         <box size="0.1 0.1 0.8" />
       </geometry>
-      <!-- <material name="green">
-        <color rgba="0 .5 0 1" />
-      </material> -->
     </collision>
   </link>
-
   <joint name="cyl-arm1" type="${continuous}">
     <parent link="cylinder"/>
     <child link="arm1"/>
@@ -63,12 +52,8 @@
       <geometry>
         <box size="0.08 0.08 0.7" />
       </geometry>
-      <!-- <material name="blue">
-        <color rgba="0 0 0.5 1" />
-      </material> -->
     </collision>
   </link>
-
   <joint name="arm1-arm2" type="${continuous}">
     <parent link="arm1"/>
     <child link="arm2"/>
@@ -82,12 +67,8 @@
       <geometry>
         <box size="0.06 0.06 0.3" />
       </geometry>
-      <!-- <material name="purple">
-        <color rgba="1 0 0.5 1" />
-      </material> -->
     </collision>
   </link>
-
   <joint name="arm2-arm3" type="${continuous}">
     <parent link="arm2"/>
     <child link="arm3"/>
@@ -101,206 +82,12 @@
       <geometry>
         <cylinder length="0.1" radius="0.025" />
       </geometry>
-      <!-- <material name="yellow">
-        <color rgba="0 0.5 0.5 1" />
-      </material> -->
     </collision>
   </link>
-
   <joint name="arm3-tool" type="fixed">
     <parent link="arm3"/>
     <child link="tool"/>
     <origin xyz="0 0 0.3"/>
   </joint>
-
-
-<!-- <link name="leg1">
-  <inertial>
-    <mass value="1"/>
-    <inertia ixx="100" ixy="0" ixz="0" iyy="100" iyz="0" izz="100" />
-    <origin/>
-  </inertial>
-
-  <visual>
-    <origin xyz="0 0 -.3" />
-    <geometry>
-      <box size=".20 .10 .8" />
-    </geometry>
-    <material name="white">
-      <color rgba="1 1 1 1"/>
-    </material>
-  </visual>
-
-  <collision>
-    <origin xyz="0 0 -.3" />
-    <geometry>
-      <box size=".20 .10 .8" />
-    </geometry>
-    <contact_coefficients mu="0" kp="1000.0" kd="1.0"/>
-  </collision>
-</link> -->
-
-<!-- <joint name="leg1connect" type="fixed">
-  <origin xyz="0 .30 0" />
-  <parent link="axis"/>
-  <child link="leg1"/>
-</joint>
-
-<link name="leg2">
-  <inertial>
-    <mass value="1"/>
-    <inertia ixx="100" ixy="0" ixz="0" iyy="100" iyz="0" izz="100" />
-    <origin/>
-  </inertial>
-
-  <visual>
-    <origin xyz="0 0 -.3" />
-    <geometry>
-      <box size=".20 .10 .8" />
-    </geometry>
-    <material name="white">
-      <color rgba="1 1 1 1"/>
-    </material>
-  </visual>
-
-  <collision>
-    <origin xyz="0 0 -.3" />
-    <geometry>
-      <box size=".20 .10 .8" />
-    </geometry>
-    <contact_coefficients mu="0" kp="1000.0" kd="1.0"/>
-  </collision>
-</link>
-
-<joint name="leg2connect" type="fixed">
-  <origin xyz="0 -.30 0" />
-  <parent link="axis"/>
-  <child link="leg2"/>
-</joint>
-
-<link name="body">
-  <inertial>
-    <mass value="1"/>
-    <inertia ixx="100" ixy="0" ixz="0" iyy="100" iyz="0" izz="100" />
-    <origin/>
-  </inertial>
-
-  <visual>
-    <origin xyz="0 0 -0.2" />
-    <geometry>
-      <cylinder radius=".20" length=".6"/>
-    </geometry>
-    <material name="white"/>
-  </visual>
-
-  <collision>
-    <origin xyz="0 0 0.2" />
-    <geometry>
-      <cylinder radius=".20" length=".6"/>
-    </geometry>
-    <contact_coefficients mu="0" kp="1000.0" kd="1.0"/>
-  </collision>
-</link>
-
-<joint name="tilt" type="fixed">
-  <parent link="axis"/>
-  <child link="body"/>
-  <origin xyz="0 0 0" rpy="0 0 0" />
-  <axis xyz="0 1 0" />
-  <limit upper="0" lower="-.5" effort="10" velocity="10" />
-</joint>
-
-<link name="head">
-  <inertial>
-    <mass value="1"/>
-    <inertia ixx="100" ixy="0" ixz="0" iyy="100" iyz="0" izz="100" />
-    <origin/>
-  </inertial>
-
-  <visual>
-    <geometry>
-      <sphere radius=".4" />
-    </geometry>
-    <material name="white" />
-  </visual>
-
-  <collision>
-    <origin/>
-    <geometry>
-      <sphere radius=".4" />
-    </geometry>
-    <contact_coefficients mu="0" kp="1000.0" kd="1.0"/>
-  </collision>
-</link>
-
-<joint name="swivel" type="fixed">
-  <origin xyz="0 0 0.1" />
-  <axis xyz="0 0 1" />
-  <parent link="body"/>
-  <child link="head"/>
-</joint>
-
-<link name="rod">
-  <inertial>
-    <mass value="1"/>
-    <inertia ixx="100" ixy="0" ixz="0" iyy="100" iyz="0" izz="100" />
-    <origin/>
-  </inertial>
-
-  <visual>
-    <origin xyz="0 0 -.1" />
-    <geometry>
-      <cylinder radius=".02" length=".2" />
-    </geometry>
-    <material name="gray" />
-
-  </visual>
-
-  <collision>
-    <origin/>
-    <geometry>
-      <cylinder radius=".02" length=".2" />
-    </geometry>
-    <contact_coefficients mu="0" kp="1000.0" kd="1.0"/>
-  </collision>
-</link>
-
-<joint name="periscope" type="fixed">
-  <origin xyz=".12 0 .15" />
-  <axis xyz="0 0 1" />
-  <limit upper="0" lower="-.5" effort="10" velocity="10" />
-  <parent link="head"/>
-  <child link="rod"/>
-</joint>
-
-<link name="box">
-  <inertial>
-    <mass value="1"/>
-    <inertia ixx="100" ixy="0" ixz="0" iyy="100" iyz="0" izz="100" />
-    <origin/>
-  </inertial>
-
-  <visual>
-    <geometry>
-      <box size=".05 .05 .05" />
-    </geometry>
-    <material name="blue" >
-      <color rgba="0 0 1 1" />
-    </material>
-  </visual>
-
-  <collision>
-    <origin/>
-    <geometry>
-      <box size=".05 .05 .05" />
-    </geometry>
-    <contact_coefficients mu="0" kp="1000.0" kd="1.0"/>
-  </collision>
-</link>
-<joint name="boxconnect" type="fixed">
-  <origin xyz="0 0 0" />
-  <parent link="rod"/>
-  <child link="box"/>
-</joint> -->
 
 </robot>
