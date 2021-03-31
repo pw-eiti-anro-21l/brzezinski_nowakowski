@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="manipulator">
 <xacro:property name="base_size_x" value="0.2" />
-  <xacro:arg name="fixed" default="false"/>
+  <xacro:arg name="fixed" default="true"/>
   <xacro:property name="continuous" value="continuous"/>
   <xacro:if value="$(arg fixed)">
     <xacro:property name="continuous" value="fixed"/>

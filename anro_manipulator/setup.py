@@ -30,7 +30,7 @@ class XacroCommand(distutils.cmd.Command):
 
   def run(self):
     """Run command."""
-    command = ['/bin/bash', '-c', 'for f in '+os.getcwd()+'/urdf/*.xacro.xml; do xacro ${f} -o ' + install_base + '/share/' + package_name + "/" + '$(basename "$f" ".xacro.xml").urdf.xml; done']
+    command = ['/bin/bash', '-c', 'for f in '+os.getcwd()+'/urdf/*.xacro.xml; do xacro ${f} -o ' + install_base + '/share/' + package_name + "/" + '$(basename "$f" ".xacro.xml").urdf.xml fixed:=true; if [[ "$f" == *.fixed.xacro.xml ]]; then xacro ${f} -o ' + install_base + '/share/' + package_name + "/" + '$(basename "$f" ".fixed.xacro.xml").urdf.xml fixed:=false; fi; done']
     subprocess.check_call(command)
 
 class BuildPyCommand(setuptools.command.build_py.build_py):
