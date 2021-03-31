@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="manipulator">
+  <xacro:property name="package" value="anro_manipulator" />
   <xacro:property name="base_length" value="0.006" />
   <xacro:property name="cyl_length" value="0.0655" />
   <xacro:property name="arm1_length" value="0.43498" />
@@ -14,6 +15,15 @@
   </xacro:if>
   <xacro:property name="base_size_x" value="0.2" />
   <link name="base">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://${package}/base.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="yellow">
+        <color rgba=".5 .5 0 1" />
+      </material>
+    </visual>
     <collision>
       <origin xyz="0 0 ${base_length / 2}" rpy="0 0 0" />
       <geometry>
@@ -23,6 +33,15 @@
   </link>
 
   <link name="cylinder">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://${package}/cyl.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="grey">
+        <color rgba=".5 .5 .5 1" />
+      </material>
+    </visual>
     <collision>
       <origin xyz="0 0 ${cyl_length/2}" rpy="0 0 0" />
       <geometry>
@@ -38,6 +57,15 @@
   </joint>  
 
   <link name="arm1">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://${package}/arm1.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="green">
+        <color rgba="0 1 0 1" />
+      </material>
+    </visual>
     <collision>
       <origin xyz="0 0 ${arm1_length/2}" rpy="0 0 0" />
       <geometry>
@@ -53,6 +81,15 @@
   </joint>
 
   <link name="arm2">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://${package}/arm2.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="blue">
+        <color rgba="0 0 1 1" />
+      </material>
+    </visual>
     <collision>
       <origin xyz="0 0 ${arm2_length/2 - arm2_lever}" rpy="0 0 0" />
       <geometry>
@@ -68,6 +105,15 @@
   </joint>
 
   <link name="arm3">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://${package}/arm3.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="red">
+        <color rgba="1 0 0 1" />
+      </material>
+    </visual>
     <collision>
       <origin xyz="0 0 ${arm3_length/2}" rpy="0 0 0" />
       <geometry>
@@ -83,6 +129,14 @@
   </joint>
 
   <link name="tool">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://${package}/tool.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="grey">
+      </material>
+    </visual>
     <collision>
       <origin xyz="0 0 ${tool_length/2}" rpy="0 0 0" />
       <geometry>
