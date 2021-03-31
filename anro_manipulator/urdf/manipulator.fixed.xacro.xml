@@ -3,7 +3,8 @@
   <xacro:property name="base_length" value="0.006" />
   <xacro:property name="cyl_length" value="0.0655" />
   <xacro:property name="arm1_length" value="0.43498" />
-  <xacro:property name="arm2_length" value="0.465" />
+  <xacro:property name="arm2_length" value="0.5236" />
+  <xacro:property name="arm2_lever" value="0.0586" />
   <xacro:property name="arm3_length" value="0.129" />
   <xacro:property name="tool_length" value="0.011" />
   <xacro:arg name="fixed" default="true"/>
@@ -53,7 +54,7 @@
 
   <link name="arm2">
     <collision>
-      <origin xyz="0 0 ${arm2_length/2}" rpy="0 0 0" />
+      <origin xyz="0 0 ${arm2_length/2 - arm2_lever}" rpy="0 0 0" />
       <geometry>
         <box size="0.06 0.06 ${arm2_length}" />
       </geometry>
@@ -77,7 +78,7 @@
   <joint name="arm2-arm3" type="${continuous}">
     <parent link="arm2"/>
     <child link="arm3"/>
-    <origin xyz="0 0 ${arm2_length}"/>
+    <origin xyz="0 0 ${arm2_length - arm2_lever}"/>
     <axis xyz="0 1 0"/>
   </joint>
 
