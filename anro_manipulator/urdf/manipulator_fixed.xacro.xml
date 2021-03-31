@@ -1,100 +1,106 @@
 <?xml version="1.0" encoding="utf-8"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="manipulator">
 <xacro:property name="base_size_x" value="0.2" />
+  <xacro:arg name="fixed" default="false"/>
+  <xacro:property name="continuous" value="continuous"/>
+  <xacro:if value="$(arg fixed)">
+    <xacro:property name="continuous" value="fixed"/>
+  </xacro:if>
+  <xacro:property name="base_size_x" value="0.2" />
   <link name="base">
-    <visual>
+    <collision>
       <origin xyz="0 0 0.05" rpy="0 0 0" />
       <geometry>
         <box size="${base_size_x} 0.3 0.1" />
       </geometry>
-      <material name="yellow">
+      <!-- <material name="yellow">
         <color rgba="0 .5 .5 1" />
-      </material>
-    </visual>
+      </material> -->
+    </collision>
   </link>
 
   <link name="cylinder">
-    <visual>
+    <collision>
       <origin xyz="0 0 0.05" rpy="0 0 0" />
       <geometry>
         <cylinder length="0.1" radius="0.1" />
       </geometry>
-      <material name="red">
+      <!-- <material name="red">
         <color rgba=".5 0 0 1" />
-      </material>
-    </visual>
+      </material> -->
+    </collision>
   </link>
 
-  <joint name="base-cyl" type="fixed">
+  <joint name="base-cyl" type="${continuous}">
     <parent link="base"/>
     <child link="cylinder"/>
     <origin xyz="0 0 0.1"/>
   </joint>  
 
   <link name="arm1">
-    <visual>
+    <collision>
       <origin xyz="0 0 0.4" rpy="0 0 0" />
       <geometry>
         <box size="0.1 0.1 0.8" />
       </geometry>
-      <material name="green">
+      <!-- <material name="green">
         <color rgba="0 .5 0 1" />
-      </material>
-    </visual>
+      </material> -->
+    </collision>
   </link>
 
-  <joint name="cyl-arm1" type="fixed">
+  <joint name="cyl-arm1" type="${continuous}">
     <parent link="cylinder"/>
     <child link="arm1"/>
     <origin xyz="0 0 0.1"/>
   </joint>
 
   <link name="arm2">
-    <visual>
+    <collision>
       <origin xyz="0 0 0.35" rpy="0 0 0" />
       <geometry>
         <box size="0.08 0.08 0.7" />
       </geometry>
-      <material name="blue">
+      <!-- <material name="blue">
         <color rgba="0 0 0.5 1" />
-      </material>
-    </visual>
+      </material> -->
+    </collision>
   </link>
 
-  <joint name="arm1-arm2" type="fixed">
+  <joint name="arm1-arm2" type="${continuous}">
     <parent link="arm1"/>
     <child link="arm2"/>
     <origin xyz="0 0 0.8"/>
   </joint>
 
   <link name="arm3">
-    <visual>
+    <collision>
       <origin xyz="0 0 0.15" rpy="0 0 0" />
       <geometry>
         <box size="0.06 0.06 0.3" />
       </geometry>
-      <material name="purple">
+      <!-- <material name="purple">
         <color rgba="1 0 0.5 1" />
-      </material>
-    </visual>
+      </material> -->
+    </collision>
   </link>
 
-  <joint name="arm2-arm3" type="fixed">
+  <joint name="arm2-arm3" type="${continuous}">
     <parent link="arm2"/>
     <child link="arm3"/>
     <origin xyz="0 0 0.7"/>
   </joint>
 
   <link name="tool">
-    <visual>
+    <collision>
       <origin xyz="0 0 0.05" rpy="0 0 0" />
       <geometry>
         <cylinder length="0.1" radius="0.025" />
       </geometry>
-      <material name="yellow">
+      <!-- <material name="yellow">
         <color rgba="0 0.5 0.5 1" />
-      </material>
-    </visual>
+      </material> -->
+    </collision>
   </link>
 
   <joint name="arm3-tool" type="fixed">
