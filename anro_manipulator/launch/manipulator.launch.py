@@ -1,5 +1,4 @@
 from launch import LaunchDescription
-import math
 
 from launch_ros.actions import Node
 
