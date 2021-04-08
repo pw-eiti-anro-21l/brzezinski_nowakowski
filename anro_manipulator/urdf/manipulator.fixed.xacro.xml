@@ -2,19 +2,11 @@
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="manipulator">
   <xacro:property name="package" value="anro_manipulator" />
   <xacro:property name="params" value="${load_yaml('TabDH.yaml')}" />
-  <xacro:property name="base_length" value="0.006" />
-  <xacro:property name="cyl_length" value="0.0655" />
-  <xacro:property name="arm1_length" value="0.43498" />
-  <xacro:property name="arm2_length" value="0.5236" />
-  <xacro:property name="arm2_lever" value="0.0586" />
-  <xacro:property name="arm3_length" value="0.129" />
-  <xacro:property name="tool_length" value="0.011" />
   <xacro:arg name="fixed" default="true"/>
-  <xacro:property name="continuous" value="continuous"/>
+  <xacro:property name="continuous" value="revolute"/>
   <xacro:if value="$(arg fixed)">
     <xacro:property name="continuous" value="fixed"/>
   </xacro:if>
-  <xacro:property name="base_size_x" value="0.2" />
   
   <link name="base">
     <visual>
@@ -57,6 +49,7 @@
     <child link="cylinder"/>
     <origin xyz="${params['joint1'][0]}" rpy="${params['joint1'][1]}" />
     <axis xyz="0 0 1"/>
+    <limit effort ="1000.0" lower="0.0" upper="2" velocity="0.5"/>
   </joint>  
 
   <link name="arm1">
@@ -82,6 +75,7 @@
     <child link="arm1"/>
     <origin xyz="${params['joint2'][0]}" rpy="${params['joint2'][1]}"/>
     <axis xyz="0 0 1"/>
+    <limit effort ="1000.0" lower="0.0" upper="2" velocity="0.5"/>
   </joint>
 
   <link name="arm2">
@@ -101,11 +95,13 @@
       </geometry>
     </collision>
   </link>
+
   <joint name="arm1-arm2" type="${continuous}">
     <parent link="arm1"/>
     <child link="arm2"/>
     <origin xyz="${params['joint3'][0]}" rpy="${params['joint3'][1]}"/>
     <axis xyz="0 0 1"/>
+    <limit effort ="1000.0" lower="0.0" upper="2" velocity="0.5"/>
   </joint>
 
   <link name="arm3">
@@ -125,11 +121,13 @@
       </geometry>
     </collision>
   </link>
+
   <joint name="arm2-arm3" type="${continuous}">
     <parent link="arm2"/>
     <child link="arm3"/>
     <origin xyz="${params['joint4'][0]}" rpy="${params['joint4'][1]}"/>
     <axis xyz="0 0 1"/>
+    <limit effort ="1000.0" lower="0.0" upper="2" velocity="0.5"/>
   </joint>
 
   <link name="tool">
@@ -148,6 +146,7 @@
       </geometry>
     </collision>
   </link>
+  
   <joint name="arm3-tool" type="fixed">
     <parent link="arm3"/>
     <child link="tool"/>
