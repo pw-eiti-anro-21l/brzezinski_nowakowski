@@ -1,15 +1,21 @@
-# URDF
+## URDF
 W tym folderze znajdują się wszystkie pliki odpowiadające za wygenerowanie modelu manipulatora
-## Tabela D-H
+### Tabela D-H
 - To zwykły plik tekstowy, który jest zapisany w formie słownika, którego jedyną wartością jest lista kolejnych słowników. 
 Ich klucze oznaczają odpowiednie kolumny a kolejne słowniki odpowiadają za kolejne wiersze macierzy D-H.
-- Nasza tabela D-H wygląda następująco:
-![D-H MATRIX](./docs/DHmatrix.png)
+- Nasza tabela D-H wygląda następująco:  
+  |   | a<sub>i-1</sub> | α<sub>i-1</sub> | d<sub>i</sub> | Φ<sub>i</sub> |
+  |---|-----------------|-----------------|---------------|---------------|
+  | 1 | 0               | 0               | d<sub>1</sub> | Φ<sub>1</sub> |
+  | 2 | 0               | α<sub>1</sub>   | 0             | Φ<sub>2</sub> |
+  | 3 | a<sub>2</sub>   | 0               | 0             | Φ<sub>3</sub> |
+  | 4 | a<sub>3</sub>   | 0               | 0             | Φ<sub>4</sub> |
+  | 5 | a<sub>4</sub>   | 0               | 0             | 0             |
 - Podanie niezerowych wartości w niestosownych miejscach może spowodować błędne wczytanie modelu.
-## Konwerter
+### Konwerter
 - Jest to plik z rozszerzeniem `.py`, który odpowiada za wygenerowanie współrzędnych "xyz" oraz "rpy" wszystkich stawów i złącz oraz długości tych złącz poprzez 
   tworzenie/nadpisywanie pliku `TabDH.yaml`
-## Tworzenie modelu
+### Tworzenie modelu
 - Z wygenerowanie modelu manipulatora odpowiada plik `manipulator.fixed.xacro.xml` Pobiera on parametry z pliku `TabDH.yaml` za pomocą następujących komend:
   ```
   <xacro:property name="package" value="anro_manipulator" />
