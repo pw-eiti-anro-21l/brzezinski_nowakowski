@@ -3,7 +3,9 @@
   <xacro:property name="package" value="anro_manipulator" />
   <xacro:property name="params" value="${load_yaml('TabDH.yaml')}" />
   <xacro:arg name="fixed" default="true"/>
-  <xacro:property name="continuous" value="revolute"/>
+  <xacro:property name="continuous" value="revolute"/> 
+  <xacro:property name="base_length" value="0.006" />
+  <xacro:property name="arm2_lever_length" value="0.0586" />
   <xacro:if value="$(arg fixed)">
     <xacro:property name="continuous" value="fixed"/>
   </xacro:if>
@@ -19,16 +21,16 @@
       </material>
     </visual>
     <collision>
-      <origin xyz="${params['base'][0]}" rpy="${params['base'][1]}" />
+      <origin xyz="${str(params['base'][0].split()[0]) + ' ' + str(params['base'][0].split()[1]) + ' ' + str(float(str(params['base'][0].split()[2])) - params['base'][2]/2 + base_length/2)}" rpy="${params['base'][1]}" />
       <geometry>
-        <box size="0.192 0.337 ${params['base'][2]}" />
+        <box size="0.192 0.337 ${base_length}" />
       </geometry>
     </collision>
   </link>
 
   <link name="cylinder">
     <visual>
-      <origin xyz="0 0 0" rpy="0 0 0" />
+      <origin xyz="${str(params['base'][0].split()[0]) + ' ' + str(params['base'][0].split()[1]) + ' ' + str(float(params['base'][0].split()[2]) - params['base'][2]/2 + base_length)}" rpy="0 0 0" />
       <geometry>
         <mesh filename="package://${package}/cyl.stl" scale="0.001 0.001 0.001"/>
       </geometry>
@@ -37,9 +39,9 @@
       </material>
     </visual>
     <collision>
-      <origin xyz="${params['link2'][0]}" rpy="${params['link2'][1]}" />
+      <origin xyz="${str(params['base'][0].split()[0]) + ' ' + str(params['base'][0].split()[1]) + ' ' + str(float(params['base'][0].split()[2]) + base_length/2)}" rpy="0 0 0" />
       <geometry>
-        <cylinder length="${params['link2'][2]}" radius="0.06" />
+        <cylinder length="${float(params['base'][2]) - base_length}" radius="0.06" />
       </geometry>
     </collision>
   </link>
@@ -47,7 +49,7 @@
   <joint name="base-cyl" type="${continuous}">
     <parent link="base"/>
     <child link="cylinder"/>
-    <origin xyz="${params['joint1'][0]}" rpy="${params['joint1'][1]}" />
+    <origin xyz="${params['joint1'][0]}"  rpy="${params['joint1'][1]}"/>
     <axis xyz="0 0 1"/>
     <limit effort ="1000.0" lower="0.0" upper="2" velocity="0.5"/>
   </joint>  
@@ -102,6 +104,21 @@
     <origin xyz="${params['joint3'][0]}" rpy="${params['joint3'][1]}"/>
     <axis xyz="0 0 1"/>
     <limit effort ="1000.0" lower="0.0" upper="2" velocity="0.5"/>
+  </joint>
+
+  <link name="arm2_lever">
+    <collision>
+      <origin xyz="${-arm2_lever_length/2} 0 0" rpy="0 0 0" />
+      <geometry>
+        <box size="${arm2_lever_length} 0.06 0.06" />
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="arm2-arm2_lever" type="fixed">
+    <parent link="arm2"/>
+    <child link="arm2_lever"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
   </joint>
 
   <link name="arm3">

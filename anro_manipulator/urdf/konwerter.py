@@ -2,7 +2,7 @@ import json
 import yaml
 from math import pi
 
-with open('TabelaDH.txt') as json_file:
+with open('TabelaDH.json') as json_file:
     data = json.load(json_file)
     a_prev = 0
     for p in data['DH']:
@@ -20,16 +20,11 @@ with open('TabelaDH.txt') as json_file:
         theta = p['theta']
         n = p['n']
         if n == 1:
-            d = d/2
-            origin = "0 0 " + str(d/2)
-            rpy = "0 0 0"
-            length = d 
-            parameters['base'] = [origin, rpy, length]
             origin = "0 0 " + str(d/2)
             rpy = "0 0 0"
             length = d  
-            parameters['link' + str(n+1)] = [origin, rpy, length]
-            origin = "0 0 " + str(d) 
+            parameters['base'] = [origin, rpy, length]
+            origin = "0 0 0" 
             rpy = "0 0 " + str(pi*theta/180)
             parameters['joint' + str(n)] = [origin, rpy]
             d_prev = d
