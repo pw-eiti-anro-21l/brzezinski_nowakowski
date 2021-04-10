@@ -52,7 +52,7 @@ class StatePublisher(Node):
                     # update joint_state
                     now = self.get_clock().now()
                     joint_state.header.stamp = now.to_msg()
-                    joint_state.name = ['base-cyl', 'cyl-arm1', 'arm1-arm2', 'arm2-arm3']
+                    joint_state.name = ['base-cyl', 'dummy-arm1', 'arm1-arm2', 'arm2-arm3']
                     joint_state.position = [cyl, arm1, arm2, arm3]
 
                     # update transform

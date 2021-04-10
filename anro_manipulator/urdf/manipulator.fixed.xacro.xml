@@ -21,16 +21,16 @@
       </material>
     </visual>
     <collision>
-      <origin xyz="${str(params['base'][0].split()[0]) + ' ' + str(params['base'][0].split()[1]) + ' ' + str(float(str(params['base'][0].split()[2])) - params['base'][2]/2 + base_length/2)}" rpy="${params['base'][1]}" />
+      <origin xyz="${params['link1'][0]}" rpy="${params['link1'][1]}" />
       <geometry>
-        <box size="0.192 0.337 ${base_length}" />
+        <box size="0.192 0.337 ${params['link1'][2]}" />
       </geometry>
     </collision>
   </link>
 
   <link name="cylinder">
     <visual>
-      <origin xyz="${str(params['base'][0].split()[0]) + ' ' + str(params['base'][0].split()[1]) + ' ' + str(float(params['base'][0].split()[2]) - params['base'][2]/2 + base_length)}" rpy="0 0 0" />
+      <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
         <mesh filename="package://${package}/cyl.stl" scale="0.001 0.001 0.001"/>
       </geometry>
@@ -39,9 +39,9 @@
       </material>
     </visual>
     <collision>
-      <origin xyz="${str(params['base'][0].split()[0]) + ' ' + str(params['base'][0].split()[1]) + ' ' + str(float(params['base'][0].split()[2]) + base_length/2)}" rpy="0 0 0" />
+      <origin xyz="${params['link2'][0]}" rpy="${params['link2'][1]}" />
       <geometry>
-        <cylinder length="${float(params['base'][2]) - base_length}" radius="0.06" />
+        <cylinder length="${params['link2'][2]}" radius="0.06" />
       </geometry>
     </collision>
   </link>
@@ -54,6 +54,14 @@
     <limit effort ="1000.0" lower="0.0" upper="2" velocity="0.5"/>
   </joint>  
 
+  <link name="dummy">
+  </link>
+  <joint name="cyl-dummy" type="fixed">
+    <parent link="cylinder"/>
+    <child link="dummy"/>
+    <origin xyz="${params['joint2'][0]}" rpy="${params['joint2'][1]}"/>
+  </joint>
+
   <link name="arm1">
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
@@ -65,17 +73,17 @@
       </material>
     </visual>
     <collision>
-      <origin xyz="${params['link3'][0]}" rpy="${params['link3'][1]}" />
+      <origin xyz="${params['link4'][0]}" rpy="${params['link4'][1]}" />
       <geometry>
-        <box size="${params['link3'][2]} 0.07 0.07" />
+        <box size="${params['link4'][2]} 0.07 0.07" />
       </geometry>
     </collision>
   </link>
 
-  <joint name="cyl-arm1" type="${continuous}">
-    <parent link="cylinder"/>
+  <joint name="dummy-arm1" type="${continuous}">
+    <parent link="dummy"/>
     <child link="arm1"/>
-    <origin xyz="${params['joint2'][0]}" rpy="${params['joint2'][1]}"/>
+    <origin xyz="${params['joint3'][0]}" rpy="${params['joint3'][1]}"/>
     <axis xyz="0 0 1"/>
     <limit effort ="1000.0" lower="0.0" upper="2" velocity="0.5"/>
   </joint>
@@ -91,9 +99,9 @@
       </material>
     </visual>
     <collision>
-      <origin xyz="${params['link4'][0]}" rpy="${params['link4'][1]}" />
+      <origin xyz="${params['link5'][0]}" rpy="${params['link5'][1]}" />
       <geometry>
-        <box size="${params['link4'][2]} 0.06 0.06" />
+        <box size="${params['link5'][2]} 0.06 0.06" />
       </geometry>
     </collision>
   </link>
@@ -101,7 +109,7 @@
   <joint name="arm1-arm2" type="${continuous}">
     <parent link="arm1"/>
     <child link="arm2"/>
-    <origin xyz="${params['joint3'][0]}" rpy="${params['joint3'][1]}"/>
+    <origin xyz="${params['joint4'][0]}" rpy="${params['joint4'][1]}"/>
     <axis xyz="0 0 1"/>
     <limit effort ="1000.0" lower="0.0" upper="2" velocity="0.5"/>
   </joint>
@@ -132,9 +140,9 @@
       </material>
     </visual>
     <collision>
-      <origin xyz="${params['link5'][0]}" rpy="${params['link5'][1]}" />
+      <origin xyz="${params['link6'][0]}" rpy="${params['link6'][1]}" />
       <geometry>
-        <box size="${params['link5'][2]} 0.05 0.05" />
+        <box size="${params['link6'][2]} 0.05 0.05" />
       </geometry>
     </collision>
   </link>
@@ -142,14 +150,14 @@
   <joint name="arm2-arm3" type="${continuous}">
     <parent link="arm2"/>
     <child link="arm3"/>
-    <origin xyz="${params['joint4'][0]}" rpy="${params['joint4'][1]}"/>
+    <origin xyz="${params['joint5'][0]}" rpy="${params['joint5'][1]}"/>
     <axis xyz="0 0 1"/>
     <limit effort ="1000.0" lower="0.0" upper="2" velocity="0.5"/>
   </joint>
 
   <link name="tool">
     <visual>
-      <origin xyz="0 0 0" rpy="0 0 0" />
+      <origin xyz="0 0 0" rpy="0 1.5707963267948966 0" />
       <geometry>
         <mesh filename="package://${package}/tool.stl" scale="0.001 0.001 0.001"/>
       </geometry>
@@ -157,9 +165,9 @@
       </material>
     </visual>
     <collision>
-      <origin xyz="${params['link6'][0]}" rpy="${params['link6'][1]}" />
+      <origin xyz="0.005 0 0" rpy="0 1.5707963267948966 0" />
       <geometry>
-        <cylinder length="${params['link6'][2]}" radius="0.03" />
+        <cylinder length="0.01" radius="0.03" />
       </geometry>
     </collision>
   </link>
@@ -167,7 +175,7 @@
   <joint name="arm3-tool" type="fixed">
     <parent link="arm3"/>
     <child link="tool"/>
-    <origin xyz="${params['joint5'][0]}" rpy="${params['joint5'][1]}"/>
+    <origin xyz="${params['joint6'][0]}" rpy="${params['joint6'][1]}"/>
   </joint>
 
 </robot>
