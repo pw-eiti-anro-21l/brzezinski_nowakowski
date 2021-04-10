@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="manipulator">
   <xacro:property name="package" value="anro_manipulator" />
-  <xacro:property name="params" value="${load_yaml('TabDH.yaml')}" />
+  <xacro:property name="params" value="${load_yaml('manipulator.yaml')}" />
   <xacro:arg name="fixed" default="true"/>
   <xacro:property name="continuous" value="revolute"/> 
   <xacro:property name="base_length" value="0.006" />

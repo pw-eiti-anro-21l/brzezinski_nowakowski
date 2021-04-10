@@ -30,7 +30,9 @@ class XacroCommand(distutils.cmd.Command):
 
   def run(self):
     """Run command."""
-    command = ['/bin/bash', '-c', 'for f in '+os.getcwd()+'/urdf/*.xacro.xml; do xacro ${f} -o ' + install_base + '/share/' + package_name + "/" + '$(basename "$f" ".xacro.xml").urdf.xml fixed:=true; if [[ "$f" == *.fixed.xacro.xml ]]; then xacro ${f} -o ' + install_base + '/share/' + package_name + "/" + '$(basename "$f" ".fixed.xacro.xml").urdf.xml fixed:=false; fi; done']
+    install_path = install_base + '/share/' + package_name + "/"
+    package_path = os.getcwd()
+    command = ['/bin/bash', '-c', 'for f in '+package_path+'/urdf/*.xacro.xml; do python3 '+package_path + '/' + package_name + '/dh_converter.py -i='+package_path+'/urdf/$(basename $(basename "$f" ".xacro.xml")  ".fixed").json -o=' + install_path + '$(basename $(basename "$f" ".xacro.xml")  ".fixed").yaml; cp $f ' + install_path + '$(basename "$f"); cd '+install_path+ ';xacro ' + install_path + '$(basename "$f") -o ' + install_path + '$(basename "$f" ".xacro.xml").urdf.xml fixed:=true; if [[ "$f" == *.fixed.xacro.xml ]]; then xacro ' + install_path + '$(basename "$f") -o ' + install_path + '$(basename "$f" ".fixed.xacro.xml").urdf.xml fixed:=false; fi;cd '+package_path+ '; done']
     subprocess.check_call(command)
 
 class BuildPyCommand(setuptools.command.build_py.build_py):
