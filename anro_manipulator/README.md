@@ -34,7 +34,7 @@ Jest to skrypt odpowiadający za wygenerowanie współrzędnych zgodnych z urdf 
 - `/tf`
 
 ## URDF
-W tym folderze znajdują się wszystkie pliki związane z modelem manipulatora. Dla plików rozszerzeniem `.xacro.xml` są automatycznie generowane odpowiadające im pliki `.urdf.xml`. Dla plików `fixed.xacro.xml` dodatkowo generowany jest plik `fixed.urdf.xml`, pliki xacro z takim rozszerzeniem powinny przyjmować opcjonalny argument `fixed`. Dla każdego pliku `.xacro.xml` kownertowany jest również plik z rozszerzeniem `.json` na plik z rozszerzeniem `.yaml`, z którego model xacro powinien wczytać parametry.
+W tym folderze znajdują się wszystkie pliki związane z modelem manipulatora. Dla plików rozszerzeniem `.xacro.xml` są automatycznie generowane odpowiadające im pliki `.urdf.xml`. Dla plików `.fixed.xacro.xml` dodatkowo generowany jest plik `.fixed.urdf.xml`, pliki xacro z takim rozszerzeniem powinny przyjmować opcjonalny argument `fixed`. Dla każdego pliku `.xacro.xml` kownertowany jest również plik z rozszerzeniem `.json` na plik z rozszerzeniem `.yaml`, z którego model xacro powinien wczytać parametry.
 ### Tablica D-H - `manipulator.json`
 Tablica json do której wpisuje się kolejne wiersze tabeli D-H. Tablica ta jest automatycznie konwertowana na plik `manipulator.yaml`, z którego są wczytywane parametry do pliku `manipulator.fixed.xacro.xml`  
 Tabela D-H manipulatora:  
