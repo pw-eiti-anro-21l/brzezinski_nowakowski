@@ -17,7 +17,7 @@ Jest to skrypt odpowiadający za wygenerowanie współrzędnych zgodnych z urdf 
   ros2 launch anro_manipulator manipulator.launch.py
   ```
 - `rviz_fixed.launch.py`  
-  Uruchamia jednocześnie `robot_state_publisher` z paczki `robot_state_publisher` oraz `rviz2` z paczki `rviz2`. Do `robot_state_publisher` zostaje przekazany plik `manipulator.fixed.urdf.xml` z paczki `anro_manipulator`
+  Uruchamia jednocześnie `robot_state_publisher` z paczki `robot_state_publisher` oraz `rviz2` z paczki `rviz2`. Do `robot_state_publisher` zostaje przekazany plik `manipulator.fixed.urdf.xml`. Do `rviz2` zostaje przekazany plik konfiguracyjny `manipulator.rviz`.
   ```
   ros2 launch anro_manipulator rviz_fixed.launch.py
   ```
