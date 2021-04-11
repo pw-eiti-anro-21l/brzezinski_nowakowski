@@ -49,10 +49,10 @@ Tabela D-H manipulatora:
 
 ### Model - `manipulator.fixed.xacro.xml`
 Model w formacie xacro, który jest automatycznie konwertowany na odpowiadające mu pliki urdf `manipulator.urdf.xml` oraz `manipulator.fixed.urdf.xml`. Pobiera on parametry z pliku `manipulator.yaml` oraz przyjmuje opcjonalny argument `fixed`. Dla `fixed=true` generowany plik urdf ma zablokowane stawy.
-- `manipulator.urdf.xml`
+- `manipulator.urdf.xml`  
   ![Model](docs/Model.png)
-- `manipulator.fixed.urdf.xml`
-  ![Model](docs/Model_fixed.png)
+- `manipulator.fixed.urdf.xml`  
+  ![Model_fixed](docs/Model_fixed.png)
 ### Konfiguracja RVIZ2 - `manipulator.rviz`
 Domyślna konfiguracja RVIZ2 wyświetlająca model manipulatora.
 
