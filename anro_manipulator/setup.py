@@ -60,10 +60,10 @@ setup(
     },
     install_requires=['setuptools'],
     zip_safe=True,
-    maintainer='gabriel',
-    maintainer_email='gabrysbrzezinski@gmail.com',
-    description='TODO: Package description',
-    license='TODO: License declaration',
+    maintainer='Gabriel Brzeziński, Kacper Nowakowski',
+    maintainer_email='gabrysbrzezinski@gmail.com, casperus99@wp.pl',
+    description="Package with manipulator's model",
+    license='MIT License',
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [

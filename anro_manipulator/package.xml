@@ -3,14 +3,17 @@
 <package format="3">
   <name>anro_manipulator</name>
   <version>0.0.0</version>
-  <description>TODO: Package description</description>
-  <maintainer email="gabrysbrzezinski@gmail.com">gabriel</maintainer>
-  <license>TODO: License declaration</license>
+  <description>Package with manipulator's model</description>
+  <maintainer email="gabrysbrzezinski@gmail.com">Gabriel Brzeziński</maintainer>
+  <maintainer email="casperus99@wp.pl">Kacper Nowakowski</maintainer>
+  <license>MIT License</license>
 
   <depend>rclpy</depend>
+  <depend>tf2_ros</depend>
   <depend>rviz2</depend>
   <depend>xacro</depend>
-
+  <depend>geometry_msgs</depend>
+  <depend>sensor_msgs</depend>
   <test_depend>ament_copyright</test_depend>
   <test_depend>ament_flake8</test_depend>
   <test_depend>ament_pep257</test_depend>
