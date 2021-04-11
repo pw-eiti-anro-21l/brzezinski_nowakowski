@@ -44,7 +44,7 @@ class StatePublisher(Node):
                 while rclpy.ok():
                     i += 1
                     cyl = i*degree
-                    arm1 = 45*degree*sin(0.04*i)+15*degree
+                    arm1 = 45*degree*sin(0.04*i)-75*degree
                     arm2 = 75*degree*sin(0.05*i)+85*degree
                     arm3 = 110*degree*sin(0.06*i)+0*degree
                     rclpy.spin_once(self)
@@ -52,7 +52,7 @@ class StatePublisher(Node):
                     # update joint_state
                     now = self.get_clock().now()
                     joint_state.header.stamp = now.to_msg()
-                    joint_state.name = ['base-cyl', 'cyl-arm1', 'arm1-arm2', 'arm2-arm3']
+                    joint_state.name = ['base-cyl', 'dummy-arm1', 'arm1-arm2', 'arm2-arm3']
                     joint_state.position = [cyl, arm1, arm2, arm3]
 
                     # update transform
