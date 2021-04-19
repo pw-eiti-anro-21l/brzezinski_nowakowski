@@ -11,7 +11,7 @@ def dh_to_rpy(dh):
         d = row['d']
         theta = row['theta'] * pi / 180
         origin =  str(a) + ' ' + str(d * sin(alfa)) + ' ' + str(d * cos(alfa))
-        rpy = str(alfa) + " " + str(sin(alfa) * theta)  + " " + str(cos(alfa) * theta) 
+        rpy = str(alfa) + " " + str(-sin(alfa) * theta)  + " " + str(cos(alfa) * theta) 
         urdf['joint' + str(index+1)] = [origin, rpy]
         length = str(sqrt(a**2 + d**2))
         origin =  str(a/2) + ' ' + str(d * sin(alfa) / 2) + ' ' + str(d * cos(alfa) / 2)

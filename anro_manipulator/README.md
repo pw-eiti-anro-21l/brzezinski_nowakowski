@@ -48,6 +48,7 @@ Tabela D-H manipulatora:
 | 5 | a<sub>4</sub>   | 0               | 0             | Φ<sub>5</sub> |
 | 6 | a<sub>5</sub>   | 0               | 0             | 0             |
 
+Robot ma 4 stopnie swobody, drugi wiersz jest dodany na potrzeby generowania modelu urdf, a 6 wiersz dodaje narzędzie bez stopni swodoby. Zmienne Φ<sub>1</sub>, Φ<sub>3</sub>,Φ<sub>4</sub>,Φ<sub>5</sub> dodają stopinie swobody odpowiedzialne za obroty stawów. 
 ### Model - `manipulator.fixed.xacro.xml`
 Model w formacie xacro, który jest automatycznie konwertowany na odpowiadające mu pliki urdf `manipulator.urdf.xml` oraz `manipulator.fixed.urdf.xml`. Pobiera on parametry z pliku `manipulator.yaml` oraz przyjmuje opcjonalny argument `fixed`. Dla `fixed=true` generowany plik urdf ma zablokowane stawy.
 - `manipulator.urdf.xml`  
