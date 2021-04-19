@@ -67,7 +67,9 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'state_publisher = anro_manipulator.state_publisher:main'
+            'state_publisher = anro_manipulator.state_publisher:main',
+            'nonkdl_dkin = anro_manipulator.nonkdl_dkin:main',
+            'kdl_dkin = anro_manipulator.kdl_dkin:main'
         ],
     },
 )
