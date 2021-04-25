@@ -76,10 +76,10 @@ class StatePublisher(Node):
                     pose_stamped.header.stamp = now.to_msg()
                     pose_stamped.header.frame_id = 'base'
 
-                    # # Obliczanie rotacji
-                    # roll = self.f3 + self.f4 + self.f5
-                    # pitch = pi/2
-                    # yaw = self.f1 
+                    # Obliczanie rotacji
+                    roll = pi/2
+                    pitch = self.f3 + self.f4 + self.f5
+                    yaw = self.f1 
 
                     # Obliczanie położenia
                     
@@ -87,15 +87,9 @@ class StatePublisher(Node):
                     point.y = sin(self.f1)*(self.r4*cos(self.f3 + self.f4) + self.r3*cos(self.f3) + self.r5*cos(self.f3 + self.f4 + self.f5))
                     point.z = self.d1 + self.d2 - self.r4*sin(self.f3 + self.f4) - self.r3*sin(self.f3) - self.r5*sin(self.f3 + self.f4 + self.f5)
                     
-                    #Obliczanie kwaternionu
-                    qx = sqrt(cos(self.f1 + self.f3 + self.f4 + self.f5) + 1)/2
-                    qy = sqrt(cos(self.f3 - self.f1 + self.f4 + self.f5) + 1)/2
-                    qz = sqrt(1 - cos(self.f3 - self.f1 + self.f4 + self.f5))/2
-                    qw = sqrt(1 - cos(self.f1 + self.f3 + self.f4 + self.f5))/2
-
                     # Uzupełnienie wiadomości i wysłanie jej                  
                     pose_stamped.pose.position = point
-                    pose_stamped.pose.orientation = Quaternion(x=qx, y=qy, z=qz, w=qw)
+                    pose_stamped.pose.orientation = self.euler_to_quaternion(roll, pitch, yaw)
                     self.pose_pub.publish(pose_stamped)
 
             except KeyboardInterrupt:
@@ -108,6 +102,13 @@ class StatePublisher(Node):
         self.f3 = j2 + self.t3
         self.f4 = j3 + self.t4
         self.f5 = j4 + self.t5
+
+    def euler_to_quaternion(self, roll, pitch, yaw):
+        qx = sin(roll/2) * cos(pitch/2) * cos(yaw/2) - cos(roll/2) * sin(pitch/2) * sin(yaw/2)
+        qy = cos(roll/2) * sin(pitch/2) * cos(yaw/2) + sin(roll/2) * cos(pitch/2) * sin(yaw/2)
+        qz = cos(roll/2) * cos(pitch/2) * sin(yaw/2) - sin(roll/2) * sin(pitch/2) * cos(yaw/2)
+        qw = cos(roll/2) * cos(pitch/2) * cos(yaw/2) + sin(roll/2) * sin(pitch/2) * sin(yaw/2)
+        return Quaternion(x=qx, y=qy, z=qz, w=qw)
 
 def main():    
     node = StatePublisher()
