@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>anro_fk</name>
+  <version>0.0.0</version>
+  <description>Package with forwad kinematics calulations</description>
+  <maintainer email="gabrysbrzezinski@gmail.com">Gabriel Brzeziński</maintainer>
+  <maintainer email="casperus99@wp.pl">Kacper Nowakowski</maintainer>
+  <license>MIT License</license>
+  
+  <depend>anro_manipulator</depend>
+  <depend>rclpy</depend>
+  <depend>tf2_ros</depend>
+
+  <depend>geometry_msgs</depend>
+  
+  <test_depend>ament_copyright</test_depend>
+  <test_depend>ament_flake8</test_depend>
+  <test_depend>ament_pep257</test_depend>
+  <test_depend>python3-pytest</test_depend>
+
+  <export>
+    <build_type>ament_python</build_type>
+  </export>
+</package>
