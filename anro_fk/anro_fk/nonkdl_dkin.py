@@ -1,5 +1,5 @@
 #! /usr/bin/env python
-from math import sin, cos, pi
+from math import sin, cos, pi, sqrt
 import threading
 import rclpy
 import json
@@ -88,11 +88,11 @@ class StatePublisher(Node):
                     point.z = self.d1 + self.d2 - self.r4*sin(self.f3 + self.f4) - self.r3*sin(self.f3) - self.r5*sin(self.f3 + self.f4 + self.f5)
                     
                     #Obliczanie kwaternionu
-                    qx = sqrt(cos(f1 + f3 + f4 + f5) + 1)/2
-                    qy = sqrt(cos(f3 - f1 + f4 + f5) + 1)/2
-                    qz = sqrt(1 - cos(f3 - f1 + f4 + f5))/2
-                    qw = sqrt(1 - cos(f1 + f3 + f4 + f5))/2
-                    
+                    qx = sqrt(cos(self.f1 + self.f3 + self.f4 + self.f5) + 1)/2
+                    qy = sqrt(cos(self.f3 - self.f1 + self.f4 + self.f5) + 1)/2
+                    qz = sqrt(1 - cos(self.f3 - self.f1 + self.f4 + self.f5))/2
+                    qw = sqrt(1 - cos(self.f1 + self.f3 + self.f4 + self.f5))/2
+
                     # Uzupełnienie wiadomości i wysłanie jej                  
                     pose_stamped.pose.position = point
                     pose_stamped.pose.orientation = Quaternion(x=qx, y=qy, z=qz, w=qw)
