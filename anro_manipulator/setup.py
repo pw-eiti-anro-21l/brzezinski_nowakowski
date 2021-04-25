@@ -44,7 +44,7 @@ class BuildPyCommand(setuptools.command.build_py.build_py):
 
 setup(
     name=package_name,
-    version='0.0.0',
+    version='1.0.0',
     packages=[package_name],
     data_files=[
         ('share/ament_index/resource_index/packages',
@@ -68,8 +68,7 @@ setup(
     entry_points={
         'console_scripts': [
             'state_publisher = anro_manipulator.state_publisher:main',
-            'nonkdl_dkin = anro_manipulator.nonkdl_dkin:main',
-            'kdl_dkin = anro_manipulator.kdl_dkin:main'
+            'dh_conventer = anro_manipulator.dh_conventer:main'
         ],
     },
 )

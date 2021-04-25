@@ -12,7 +12,6 @@
   <depend>tf2_ros</depend>
   <depend>rviz2</depend>
   <depend>xacro</depend>
-  <depend>PyKDL</depend>
   <depend>geometry_msgs</depend>
   <depend>sensor_msgs</depend>
   <test_depend>ament_copyright</test_depend>

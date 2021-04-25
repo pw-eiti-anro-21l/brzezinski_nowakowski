@@ -35,7 +35,7 @@ def generate_launch_description():
             DeclareLaunchArgument(
                     'fixed',
                     default_value='false',
-                    description='Use simulation (Gazebo) clock if true'),
+                    description='Use fixed model'),
             Node(
                     package='robot_state_publisher',
                     executable='robot_state_publisher',
