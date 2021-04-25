@@ -4,7 +4,6 @@ import threading
 import rclpy
 from rclpy.node import Node
 from rclpy.qos import QoSProfile
-from geometry_msgs.msg import Quaternion
 from sensor_msgs.msg import JointState
 from tf2_ros import TransformBroadcaster, TransformStamped
 class StatePublisher(Node):
@@ -18,6 +17,10 @@ class StatePublisher(Node):
             self.broadcaster = TransformBroadcaster(self, qos=qos_profile)
             self.nodeName = self.get_name()
             self.get_logger().info("{0} started".format(self.nodeName))
+            self.declare_parameter('cyl', 90)
+            self.declare_parameter('arm1', -70)
+            self.declare_parameter('arm2', 30)
+            self.declare_parameter('arm3', 40)
 
             degree = pi / 180.0
             loop_rate = self.create_rate(30)
@@ -28,11 +31,6 @@ class StatePublisher(Node):
             arm1 = 0.
             arm2 = 0.
             arm3 = 0.
-            #tilt = 0.
-            #tinc = degree
-            #angle = 0.
-            #height = 0.
-            #hinc = 0.005
 
             # message declarations
             odom_trans = TransformStamped()
@@ -42,11 +40,10 @@ class StatePublisher(Node):
 
             try:
                 while rclpy.ok():
-                    i += 1
-                    cyl = i*degree
-                    arm1 = 45*degree*sin(0.04*i)-75*degree
-                    arm2 = 75*degree*sin(0.05*i)+85*degree
-                    arm3 = 110*degree*sin(0.06*i)+0*degree
+                    cyl = float(self.get_parameter('cyl').get_parameter_value().integer_value)*pi/180
+                    arm1 = float(self.get_parameter('arm1').get_parameter_value().integer_value)*pi/180
+                    arm2 = float(self.get_parameter('arm2').get_parameter_value().integer_value)*pi/180
+                    arm3 = float(self.get_parameter('arm3').get_parameter_value().integer_value)*pi/180
                     rclpy.spin_once(self)
 
                     # update joint_state
@@ -55,41 +52,14 @@ class StatePublisher(Node):
                     joint_state.name = ['base-cyl', 'dummy-arm1', 'arm1-arm2', 'arm2-arm3']
                     joint_state.position = [cyl, arm1, arm2, arm3]
 
-                    # update transform
-                    # (moving in a circle with radius=2)
-                    # odom_trans.header.stamp = now.to_msg()
-                    # odom_trans.transform.translation.x = cos(angle)*2
-                    # odom_trans.transform.translation.y = sin(angle)*2
-                    # odom_trans.transform.translation.z = 0.7
-                    # odom_trans.transform.rotation = \
-                    #         euler_to_quaternion(0, 0, angle + pi/2) # roll,pitch,yaw
-
-                    # send the joint state and transform
+                    self.get_logger().info('Publishing: "%s"' % joint_state.position)
                     self.joint_pub.publish(joint_state)
                     self.broadcaster.sendTransform(odom_trans)
 
-                    # Create new robot state
-                    # tilt += tinc
-                    # if tilt < -0.5 or tilt > 0.0:
-                    #         tinc *= -1
-                    # height += hinc
-                    # if height > 0.2 or height < 0.0:
-                    #         hinc *= -1
-                    # swivel += degree
-                    # angle += degree/4
-
-                    # This will adjust as needed per iteration
-                    loop_rate.sleep()
+                    # loop_rate.sleep()
 
             except KeyboardInterrupt:
                     pass
-
-def euler_to_quaternion(roll, pitch, yaw):
-    qx = sin(roll/2) * cos(pitch/2) * cos(yaw/2) - cos(roll/2) * sin(pitch/2) * sin(yaw/2)
-    qy = cos(roll/2) * sin(pitch/2) * cos(yaw/2) + sin(roll/2) * cos(pitch/2) * sin(yaw/2)
-    qz = cos(roll/2) * cos(pitch/2) * sin(yaw/2) - sin(roll/2) * sin(pitch/2) * cos(yaw/2)
-    qw = cos(roll/2) * cos(pitch/2) * cos(yaw/2) + sin(roll/2) * sin(pitch/2) * sin(yaw/2)
-    return Quaternion(x=qx, y=qy, z=qz, w=qw)
 
 def main():
     node = StatePublisher()
