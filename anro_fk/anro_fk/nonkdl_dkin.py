@@ -38,13 +38,13 @@ class StatePublisher(Node):
             self.d1 = params[2]
             self.t1 = params[3] 
             self.d2 = params[6] 
-            self.al = params[9]
+            self.a2 = params[9]
             self.t3 = -params[11]
-            self.a3 = params[12]
+            self.r3 = params[12]
             self.t4 = params[15]
-            self.a4 = params[16]
+            self.r4 = params[16]
             self.t5 = params[19]
-            self.a5 = params[20]
+            self.r5 = params[20]
 
             self.f1 = 0.0
             self.f3 = 0.0
@@ -60,7 +60,6 @@ class StatePublisher(Node):
             self.nodeName = self.get_name()
             self.get_logger().info("{0} started".format(self.nodeName))
             
-            degree = pi / 180.0
             loop_rate = self.create_rate(30)
 
             # message declarations
@@ -83,9 +82,10 @@ class StatePublisher(Node):
                     yaw = self.f1 
 
                     # Obliczanie położenia
-                    point.x = self.a4*(cos(self.f4)*(cos(self.f1)*cos(self.f3) - cos(self.al)*sin(self.f1)*sin(self.f3)) - sin(self.f4)*(cos(self.f1)*sin(self.f3) + cos(self.al)*cos(self.f3)*sin(self.f1))) + self.a3*(cos(self.f1)*cos(self.f3) - cos(self.al)*sin(self.f1)*sin(self.f3)) + self.a5*(cos(self.f5)*(cos(self.f4)*(cos(self.f1)*cos(self.f3) - cos(self.al)*sin(self.f1)*sin(self.f3)) - sin(self.f4)*(cos(self.f1)*sin(self.f3) + cos(self.al)*cos(self.f3)*sin(self.f1))) - sin(self.f5)*(cos(self.f4)*(cos(self.f1)*sin(self.f3) + cos(self.al)*cos(self.f3)*sin(self.f1)) + sin(self.f4)*(cos(self.f1)*cos(self.f3) - cos(self.al)*sin(self.f1)*sin(self.f3))))
-                    point.y = self.a4*(cos(self.f4)*(cos(self.f3)*sin(self.f1) + cos(self.al)*cos(self.f1)*sin(self.f3)) - sin(self.f4)*(sin(self.f1)*sin(self.f3) - cos(self.al)*cos(self.f1)*cos(self.f3))) + self.a3*(cos(self.f3)*sin(self.f1) + cos(self.al)*cos(self.f1)*sin(self.f3)) + self.a5*(cos(self.f5)*(cos(self.f4)*(cos(self.f3)*sin(self.f1) + cos(self.al)*cos(self.f1)*sin(self.f3)) - sin(self.f4)*(sin(self.f1)*sin(self.f3) - cos(self.al)*cos(self.f1)*cos(self.f3))) - sin(self.f5)*(cos(self.f4)*(sin(self.f1)*sin(self.f3) - cos(self.al)*cos(self.f1)*cos(self.f3)) + sin(self.f4)*(cos(self.f3)*sin(self.f1) + cos(self.al)*cos(self.f1)*sin(self.f3))))
-                    point.z = self.d1 + self.d2 + self.a5*(cos(self.f5)*(cos(self.f3)*sin(self.al)*sin(self.f4) + cos(self.f4)*sin(self.al)*sin(self.f3)) + sin(self.f5)*(cos(self.f3)*cos(self.f4)*sin(self.al) - sin(self.al)*sin(self.f3)*sin(self.f4))) + self.a4*(cos(self.f3)*sin(self.al)*sin(self.f4) + cos(self.f4)*sin(self.al)*sin(self.f3)) + self.a3*sin(self.al)*sin(self.f3)
+                    
+                    point.x = cos(self.f1)*(self.r4*cos(self.f3 + self.f4) + self.r3*cos(self.f3) + self.r5*cos(self.f3 + self.f4 + self.f5))
+                    point.y = sin(self.f1)*(self.r4*cos(self.f3 + self.f4) + self.r3*cos(self.f3) + self.r5*cos(self.f3 + self.f4 + self.f5))
+                    point.z = self.d1 + self.d2 - self.r4*sin(self.f3 + self.f4) - self.r3*sin(self.f3) - self.r5*sin(self.f3 + self.f4 + self.f5)
 
                     # Uzupełnienie wiadomości i wysłanie jej                  
                     pose_stamped.pose.position = point
