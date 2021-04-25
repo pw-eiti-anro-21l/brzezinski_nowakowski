@@ -35,12 +35,12 @@ def generate_launch_description():
                     arguments=[urdf]
                     ),
             Node(
-                    package='anro_manipulator',
+                    package='anro_fk',
                     executable='kdl_dkin',
                     name='KDL_DKIN',
                     output='screen'),
             Node(
-                    package='anro_manipulator',
+                    package='anro_fk',
                     executable='nonkdl_dkin',
                     name='NONKDL_DKIN',
                     output='screen'),
