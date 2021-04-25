@@ -47,7 +47,7 @@ def generate_launch_description():
             Node(
                     package='rviz2',
                     executable='rviz2',
-                    name='anro_manipulator_rviz2',
+                    name='anro_fk_rviz2',
                     output='screen',
                     parameters=[{'use_sim_time': use_sim_time}],
                     arguments=['-d', rviz]),
