@@ -24,6 +24,11 @@ def generate_launch_description():
     return LaunchDescription([
             Node(
                     package='anro_fk',
+                    executable='state_publisher',
+                    name='state_publisher',
+                    output='screen'),
+            Node(
+                    package='anro_fk',
                     executable='kdl_dkin',
                     name='KDL_DKIN',
                     output='screen'),

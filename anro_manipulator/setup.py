@@ -67,7 +67,6 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'state_publisher = anro_manipulator.state_publisher:main',
             'dh_conventer = anro_manipulator.dh_conventer:main'
         ],
     },
