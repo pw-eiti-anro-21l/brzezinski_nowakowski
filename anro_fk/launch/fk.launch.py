@@ -22,18 +22,6 @@ def generate_launch_description():
             urdf_file_name)
 
     return LaunchDescription([
-            DeclareLaunchArgument(
-                    'use_sim_time',
-                    default_value='false',
-                    description='Use simulation (Gazebo) clock if true'),
-            Node(
-                    package='robot_state_publisher',
-                    executable='robot_state_publisher',
-                    name='robot_state_publisher',
-                    output='screen',
-                    parameters=[{'use_sim_time': use_sim_time}],
-                    arguments=[urdf]
-                    ),
             Node(
                     package='anro_fk',
                     executable='kdl_dkin',
@@ -43,12 +31,5 @@ def generate_launch_description():
                     package='anro_fk',
                     executable='nonkdl_dkin',
                     name='NONKDL_DKIN',
-                    output='screen'),
-            Node(
-                    package='rviz2',
-                    executable='rviz2',
-                    name='anro_fk_rviz2',
-                    output='screen',
-                    parameters=[{'use_sim_time': use_sim_time}],
-                    arguments=['-d', rviz]),
+                    output='screen')
     ])
