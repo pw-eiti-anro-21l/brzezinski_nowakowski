@@ -12,15 +12,16 @@ from launch_ros.actions import Node
 
 def generate_launch_description():
 
+    rviz = LaunchConfiguration('rviz', default='')
     fixed = LaunchConfiguration('fixed', default='false')
     use_sim_time = LaunchConfiguration('use_sim_time', default='false')
     rviz_file_name = 'manipulator.rviz'
     urdf_file_name = 'manipulator.urdf.xml'
     urdf_fixed_file_name = 'manipulator.fixed.urdf.xml'
-
-    rviz = os.path.join(
-            get_package_share_directory('anro_manipulator'),
-            rviz_file_name)
+    if rviz == '':
+        rviz = os.path.join(
+                get_package_share_directory('anro_manipulator'),
+                rviz_file_name)
     urdf = os.path.join(
             get_package_share_directory('anro_manipulator'),
             urdf_file_name)
@@ -36,6 +37,10 @@ def generate_launch_description():
                     'fixed',
                     default_value='false',
                     description='Use fixed model'),
+            DeclareLaunchArgument(
+                    'rviz',
+                    default_value='',
+                    description='Rviz config path'),
             Node(
                     package='robot_state_publisher',
                     executable='robot_state_publisher',
