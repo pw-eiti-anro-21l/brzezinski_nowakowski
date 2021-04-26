@@ -6,8 +6,8 @@ from launch_ros.actions import Node
 def generate_launch_description():
     return LaunchDescription([
             Node(
-                    package='anro_manipulator',
-                    executable='state_publisher',
-                    name='state_publisher',
+                    package='anro_fk',
+                    executable='nonkdl_dkin',
+                    name='NONKDL_DKIN',
                     output='screen'),
     ])

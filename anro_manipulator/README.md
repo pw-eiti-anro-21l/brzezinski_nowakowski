@@ -1,34 +1,28 @@
 # anro_manipulator
 Paczka stworzona na potrzeby drugich laboratoriów. Znajduje się w niej model manipulatora oraz prosty node sterujący pozycją manipulatora.
 ## Usage
-### Konwerter D-H - `dh_converter.py`
-Jest to skrypt odpowiadający za wygenerowanie współrzędnych zgodnych z urdf na podstawie tablicy D-H. Przyjmuje dwa obowiązkowe argumenty:
-- `-i` lub `--Input`
-  Ścieżka wejściowa do pliku json zawierającego tablicę D-H
-- `-o` lub `--Output`
-  Ścieżka wyjściowa w której ma zostać zapisany plik yaml zawierającego współrzędne zgodne z urdf.
-  ```
-  python3 dh_converter.py -i=<INPUT_PATH> -o=<OUTPUT_PATH>
-  ```
+- `dh_converter.py`
+  Jest to skrypt odpowiadający za wygenerowanie współrzędnych zgodnych z urdf na podstawie tablicy D-H. Przyjmuje dwa obowiązkowe argumenty:
+  - `-i` lub `--Input`
+    Ścieżka wejściowa do pliku json zawierającego tablicę D-H
+  - `-o` lub `--Output`
+    Ścieżka wyjściowa w której ma zostać zapisany plik yaml zawierającego współrzędne zgodne z urdf.
+    ```
+    python3 dh_converter.py -i=<INPUT_PATH> -o=<OUTPUT_PATH>
+    ```
 ### Launch files
-- `manipulator.launch.py`  
-  Uruchamia `state_publisher` z paczki `anro_manipulator`
-  ```
-  ros2 launch anro_manipulator manipulator.launch.py
-  ```  
-  ![Model_launch](docs/manipulator_launch_rqt_plot.png)
 - `rviz_fixed.launch.py`  
   Uruchamia jednocześnie `robot_state_publisher` z paczki `robot_state_publisher` oraz `rviz2` z paczki `rviz2`. Do `robot_state_publisher` zostaje przekazany plik `manipulator.fixed.urdf.xml`. Do `rviz2` zostaje przekazany plik konfiguracyjny `manipulator.rviz`.
   ```
   ros2 launch anro_manipulator rviz_fixed.launch.py
   ```
-  ![RQT_GRAPH](docs/rviz_fixed_launch_rqt_graph.png)
+  ![RQT_GRAPH](https://media.githubusercontent.com/media/pw-eiti-anro-21l/brzezinski_nowakowski/main/anro_manipulator/docs/rviz_fixed_launch_rqt_graph.png)
 - `rviz.launch.py`  
   Uruchamia jednocześnie `robot_state_publisher` z paczki `robot_state_publisher` oraz `rviz2` z paczki `rviz2`. Do `robot_state_publisher` zostaje przekazany plik `manipulator.urdf.xml`. Jeżeli argument `fixed` ustawiono na `true`, to do `robot_state_publisher` zostaje wtedy przekazany plik `manipulator.fixed.urdf.xml`. Do `rviz2` zostaje przekazany plik konfiguracyjny `manipulator.rviz`.
   ```
   ros2 launch anro_manipulator rviz.launch.py
   ```
-  ![RQT_GRAPH](docs/rviz_launch_rqt_graph.png)
+  ![RQT_GRAPH](https://media.githubusercontent.com/media/pw-eiti-anro-21l/brzezinski_nowakowski/main/anro_manipulator/docs/rviz_launch_rqt_graph.png)
 ## Topics
 ### Published topics
 - `/joint_states`
@@ -52,9 +46,9 @@ Robot ma 4 stopnie swobody, drugi wiersz jest dodany na potrzeby generowania mod
 ### Model - `manipulator.fixed.xacro.xml`
 Model w formacie xacro, który jest automatycznie konwertowany na odpowiadające mu pliki urdf `manipulator.urdf.xml` oraz `manipulator.fixed.urdf.xml`. Pobiera on parametry z pliku `manipulator.yaml` oraz przyjmuje opcjonalny argument `fixed`. Dla `fixed=true` generowany plik urdf ma zablokowane stawy.
 - `manipulator.urdf.xml`  
-  ![Model](docs/Model.png)
+  ![Model](https://media.githubusercontent.com/media/pw-eiti-anro-21l/brzezinski_nowakowski/main/anro_manipulator/docs/Model.png)
 - `manipulator.fixed.urdf.xml`  
-  ![Model_fixed](docs/Model_fixed.png)
+  ![Model_fixed](https://media.githubusercontent.com/media/pw-eiti-anro-21l/brzezinski_nowakowski/main/anro_manipulator/docs/Model_fixed.png)
 ### Konfiguracja RVIZ2 - `manipulator.rviz`
 Domyślna konfiguracja RVIZ2 wyświetlająca model manipulatora.
 
