@@ -39,7 +39,7 @@ class StatePublisher(Node):
             self.t1 = params[3] 
             self.d2 = params[6] 
             self.a2 = params[9]
-            self.t3 = -params[11]
+            self.t3 = params[11]
             self.r3 = params[12]
             self.t4 = params[15]
             self.r4 = params[16]
