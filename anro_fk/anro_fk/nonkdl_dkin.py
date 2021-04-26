@@ -77,7 +77,7 @@ class StatePublisher(Node):
                     pose_stamped.header.frame_id = 'base'
 
                     # Obliczanie rotacji
-                    roll = pi/2
+                    roll = 0
                     pitch = self.f3 + self.f4 + self.f5
                     yaw = self.f1 
 
