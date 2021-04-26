@@ -10,10 +10,6 @@ Paczka stworzona na potrzeby drugich laboratoriów. Znajduje się w niej model m
     ```
     python3 dh_converter.py -i=<INPUT_PATH> -o=<OUTPUT_PATH>
     ```
-- `state_publisher`  
-  Skrypt ten publikuje na temacie `/joint_states` wiadomości typu `JointState`, których główną zawartością jest lista zadanych kątów (w radianach) dla stawów manipulatora. Zadane kąty to     parametry w stopniach, które można zmieniać poprzez komendę `param set`.
-  ![RQT_PLOT](https://github.com/pw-eiti-anro-21l/brzezinski_nowakowski/blob/Kacper3/anro_manipulator/docs/state_publicher_plot.png?raw=true)
-  ![MODEL](https://github.com/pw-eiti-anro-21l/brzezinski_nowakowski/blob/Kacper3/anro_manipulator/docs/origin_test.png?raw=true)
 ### Launch files
 - `rviz_fixed.launch.py`  
   Uruchamia jednocześnie `robot_state_publisher` z paczki `robot_state_publisher` oraz `rviz2` z paczki `rviz2`. Do `robot_state_publisher` zostaje przekazany plik `manipulator.fixed.urdf.xml`. Do `rviz2` zostaje przekazany plik konfiguracyjny `manipulator.rviz`.
