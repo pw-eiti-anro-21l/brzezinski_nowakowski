@@ -20,8 +20,10 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'service = anro_interpolation.service_member_function:main',
-            'client = anro_interpolation.client_member_function:main',
+            'iservice = anro_interpolation.jint_control_srv:main',
+            'iclient = anro_interpolation.jint:main',
+            'oservice = anro_interpolation.oint_control_srv:main',
+            'oclient = anro_interpolation.oint:main',
         ],
     },
 )
