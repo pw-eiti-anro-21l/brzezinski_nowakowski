@@ -8,7 +8,10 @@ Paczka stworzona na potrzeby pierwszych laboratoriów. Znajduje się w niej pros
 Paczka stworzona na potrzeby drugich laboratoriów. Znajduje się w niej model manipulatora oraz prosty node sterujący pozycją manipulatora.
 ## [anro_fk](anro_fk/)
 Paczka stworzona na potrzeby trzecich laboratoriów. Znajdują się w niej Node'y do liczenia kinematyki prostej manipulatora.
-
+## [anro_interpolation](anro_interpolation/)
+Paczka stworzona na potrzeby tzecich laboratoriów. Dostarcza ona node'y interpolujące w przestrzeni konfiguracyjnej i operacyjnej.
+## [anro_msg](anro_msg/)
+Paczka zawierające definicje wszystkich własnych interfejsów - topics, services, actions.
 ### Autorzy
 - Gabriel Brzeziński (gabrysbrzezinski@gmail.com)  
 - Kacper Nowakowski (casperus99@wp.pl) 

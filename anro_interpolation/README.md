@@ -1,5 +1,5 @@
-# anro_manipulator
-Paczka stworzona na potrzeby drugich laboratoriów. Znajduje się w niej model manipulatora oraz prosty node sterujący pozycją manipulatora.
+# anro_interpolation
+Paczka stworzona na potrzeby tzecich laboratoriów. Dostarcza ona node'y interpolujące w przestrzeni konfiguracyjnej i operacyjnej.
 ## Usage
 ### Nodes
 - `jint_control_srv.py`  
