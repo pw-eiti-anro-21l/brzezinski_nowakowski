@@ -19,6 +19,12 @@ class MinimalService(Node):
 
     def configuration_interpolation_callback(self, request, response):
         self.get_logger().info('Incoming request \n j1: %f \n j2: %f \n j3: %f \n j4: %f \n time: %f \n type: %s' % (request.j1, request.j2, request.j3, request.j4, request.time, request.inttype))
+        if request.inttype !== 'pol' and request.inttype !== 'lin':
+            response.result = '\n Niepowodzenie - Nieprawidłowy rodzaj interpolacji'
+            return response
+        if request.time <= 0:
+            response.result = '\n Niepowodzenie - Czas musi być większy od zera'
+            return response
 
         starting_positions = self.starting_positions
         sample_time = 0.1
