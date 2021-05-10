@@ -18,10 +18,10 @@ def generate_launch_description():
     rviz_file_name = 'manipulator.rviz'
     urdf_file_name = 'manipulator.urdf.xml'
     urdf_fixed_file_name = 'manipulator.fixed.urdf.xml'
-    if rviz == '':
-        rviz = os.path.join(
-                get_package_share_directory('anro_manipulator'),
-                rviz_file_name)
+    #if rviz == '':
+    rviz = os.path.join(
+            get_package_share_directory('anro_manipulator'),
+            rviz_file_name)
     urdf = os.path.join(
             get_package_share_directory('anro_manipulator'),
             urdf_file_name)
