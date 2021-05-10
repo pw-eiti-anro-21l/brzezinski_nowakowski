@@ -3,9 +3,10 @@
 <package format="3">
   <name>anro_interpolation</name>
   <version>0.0.0</version>
-  <description>TODO: Package description</description>
-  <maintainer email="gabrysbrzezinski@gmail.com">gabriel</maintainer>
-  <license>TODO: License declaration</license>
+  <description>Package with movement interpolation</description>
+  <maintainer email="gabrysbrzezinski@gmail.com">Gabriel Brzeziński</maintainer>
+  <maintainer email="casperus99@wp.pl">Kacper Nowakowski</maintainer>
+  <license>MIT License</license>
 
   <depend>rclpy</depend>
   <depend>example_interfaces</depend>
