@@ -7,7 +7,7 @@ Paczka stworzona na potrzeby drugich laboratoriów. Znajduje się w niej model m
 - `jint.py`  
   Przyjmuje kolejno argumenty: kąt stawu 1, kąt stawu 2, kąt stawu 3, kąt stawu 4, czas, rodzaj interpolacji. Na ich podstawie wysyła żadanie do serwisu `interpolacja_konfiguracyjna`.
 - `oint_control_srv.py`  
-  Tworzy serwis `interpolacja_operacyjna` typu `Oint` z paczki `anro_msg`. Na podstawie otrzymanego położenia oraz orientacji interpoluje kolejne pozycje. Możliwa jest interpolacja wielomianowa `pol` oraz liniowa `lin`. 
+  Tworzy serwis `interpolacja_operacyjna` typu `Oint` z paczki `anro_msg`. Na podstawie otrzymanego położenia oraz orientacji interpoluje kolejne pozycje. Możliwa jest interpolacja wielomianowa `pol` oraz liniowa `lin`. Położenie jest publikowane na topic'u `/PoseStamped` jako `PoseStamped` z paczki `geometry_msgs` oraz na `/Path` jako `Path` z paczki `nav_msg`.
 - `oint.py`  
   Przyjmuje kolejno argumenty: współrzędna x, współrzędna y, współrzędna z, roll, pitch, yaw. Na ich podstawie wysyła żadanie do serwisu `interpolacja_operacyjna`.
 ### Launch files

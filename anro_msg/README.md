@@ -1,8 +1,6 @@
 # anro_msg
 Paczka zawierające definicje wszystkich własnych interfejsów - topics, services, actions.
 
-### Launch files
-
 ## Services
 - `Jint.srv` - Służy do zadania pozycji poszczególnych stawów manipulatora oraz wybrania rodzaju interpolacji.
 - `Oint.srv` - Służy do zadania pozycji końcówki manipulatora oraz wybrania rodzaju interpolacji
