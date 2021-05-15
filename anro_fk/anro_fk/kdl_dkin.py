@@ -25,7 +25,7 @@ class StatePublisher(Node):
             package_share_directory = get_package_share_directory('anro_manipulator')
             with open(package_share_directory + '/manipulator.yaml', 'r') as yaml_file:
                 coords = yaml.load(yaml_file, Loader=yaml.FullLoader)
-
+            
             xyz1 = self.convert_to_floats(coords["joint1"][0]) # potrzebuje joint 1 i 2 dla pierwszego d
             xyz11 = self.convert_to_floats(coords["joint2"][0]) # potrzebuje joint 1 i 2 dla pierwszego d
             rpy1 = self.convert_to_floats(coords["joint1"][1])
@@ -59,7 +59,7 @@ class StatePublisher(Node):
             chain.addSegment(segment1)
 
             arm1 = Joint(Joint.RotY)
-            frame2 = Frame(Rotation.RPY(0, rpy3[2], 0), Vector(xyz3[0],0,0))
+            frame2 = Frame(Rotation.RPY(0, 0, rpy3[2]), Vector(xyz3[0],0,0))
             segment2 = Segment(arm1, frame2)
             chain.addSegment(segment2)
             
@@ -69,7 +69,7 @@ class StatePublisher(Node):
             chain.addSegment(segment3)
 
             arm3 = Joint(Joint.RotY)
-            frame4 = Frame(Rotation.RPY(0, rpy5[2], 0), Vector(xyz5[0], 0, 0))
+            frame4 = Frame(Rotation.RPY(rpy2[0], rpy5[2]+rpy2[1], rpy2[2]), Vector(xyz5[0], 0, 0))
             segment4 = Segment(arm3, frame4)
             chain.addSegment(segment4)
 
