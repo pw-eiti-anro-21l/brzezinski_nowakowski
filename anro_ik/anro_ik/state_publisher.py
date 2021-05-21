@@ -54,7 +54,7 @@ class StatePublisher(Node):
             self.nodeName = self.get_name()
             self.get_logger().info("{0} started".format(self.nodeName))
             self.declare_parameter('x', 0.5)
-            self.declare_parameter('y', 0.5)
+            self.declare_parameter('y', 0)
             self.declare_parameter('z', 0.5)
             self.declare_parameter('r', 0)
 
@@ -89,18 +89,19 @@ class StatePublisher(Node):
                     c_2 = l2*l2 + z2 * z2
                     fi4a = pi - acos( (c_2 - self.r3 * self.r3 - self.r4 * self.r4) / (-2 * self.r3 * self.r4) )
                     fi4b = - fi4a
+                    _fi3_1 =  acos( (self.r4*self.r4 - self.r3 * self.r3 - c_2) / (-2 * self.r3 * sqrt(c_2)) ) 
+                    _fi3_2 =  atan2(z2, l2)
+                    fi3a= -_fi3_2 - _fi3_1
+                    fi3b= -_fi3_2 + _fi3_1
 
-                    fi3a= -acos( (self.r4*self.r4 - self.r3 * self.r3 - c_2) / (-2 * self.r3 * sqrt(c_2)) ) - atan2(z2, l2)
-                    fi3b= -fi3a
-
-                    fi5a = r - fi4a - fi3a
+                    fi5a = -r - fi4a - fi3a
                     fi5b = r - fi4b - fi4b
 
                     # update joint_state
                     now = self.get_clock().now()
                     joint_state.header.stamp = now.to_msg()
                     joint_state.name = ['base-cyl', 'dummy-arm1', 'arm1-arm2', 'arm2-arm3']
-                    joint_state.position = [f1, fi3a, fi4a, fi5a]
+                    joint_state.position = [f1, fi3a, fi4a,  fi5a]
 
                     self.get_logger().info('Publishing: "%s"' % joint_state.position)
                     self.joint_pub.publish(joint_state)
