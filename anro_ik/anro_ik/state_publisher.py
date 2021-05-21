@@ -95,7 +95,7 @@ class StatePublisher(Node):
                     fi3b= -_fi3_2 + _fi3_1
 
                     fi5a = -r - fi4a - fi3a
-                    fi5b = r - fi4b - fi4b
+                    fi5b = -r - fi4b - fi3b
 
                     # update joint_state
                     now = self.get_clock().now()
