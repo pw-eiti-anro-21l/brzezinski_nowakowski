@@ -84,28 +84,29 @@ class StatePublisher(Node):
                     z2 = z - self.r5*sin(r) - self.d1 - self.d2
                     l = sqrt(x*x + y*y)
                     l2 = l -  self.r5*cos(r)
-
-                    f1 = atan2(y, x)
                     c_2 = l2*l2 + z2 * z2
-                    fi4a = pi - acos( (c_2 - self.r3 * self.r3 - self.r4 * self.r4) / (-2 * self.r3 * self.r4) )
-                    fi4b = - fi4a
-                    _fi3_1 =  acos( (self.r4*self.r4 - self.r3 * self.r3 - c_2) / (-2 * self.r3 * sqrt(c_2)) ) 
-                    _fi3_2 =  atan2(z2, l2)
-                    fi3a= -_fi3_2 - _fi3_1
-                    fi3b= -_fi3_2 + _fi3_1
+                    
+                    if c_2  < (self.r3 + self.r4)**2: #Check if position is achievable
+                        f1 = atan2(y, x)
+                        fi4a = pi - acos( (c_2 - self.r3 * self.r3 - self.r4 * self.r4) / (-2 * self.r3 * self.r4) )
+                        fi4b = - fi4a
+                        _fi3_1 =  acos( (self.r4*self.r4 - self.r3 * self.r3 - c_2) / (-2 * self.r3 * sqrt(c_2)) ) 
+                        _fi3_2 =  atan2(z2, l2)
+                        fi3a= -_fi3_2 - _fi3_1
+                        fi3b= -_fi3_2 + _fi3_1
 
-                    fi5a = -r - fi4a - fi3a
-                    fi5b = -r - fi4b - fi3b
+                        fi5a = -r - fi4a - fi3a
+                        fi5b = -r - fi4b - fi3b
 
-                    # update joint_state
-                    now = self.get_clock().now()
-                    joint_state.header.stamp = now.to_msg()
-                    joint_state.name = ['base-cyl', 'dummy-arm1', 'arm1-arm2', 'arm2-arm3']
-                    joint_state.position = [f1, fi3a, fi4a,  fi5a]
+                        # update joint_state
+                        now = self.get_clock().now()
+                        joint_state.header.stamp = now.to_msg()
+                        joint_state.name = ['base-cyl', 'dummy-arm1', 'arm1-arm2', 'arm2-arm3']
+                        joint_state.position = [f1, fi3a, fi4a,  fi5a]
 
-                    self.get_logger().info('Publishing: "%s"' % joint_state.position)
-                    self.joint_pub.publish(joint_state)
-                    self.broadcaster.sendTransform(odom_trans)
+                        self.get_logger().info('Publishing: "%s"' % joint_state.position)
+                        self.joint_pub.publish(joint_state)
+                        self.broadcaster.sendTransform(odom_trans)
 
                     # loop_rate.sleep()
                     rclpy.spin_once(self)
