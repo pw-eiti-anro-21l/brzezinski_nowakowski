@@ -1,11 +1,12 @@
 #! /usr/bin/env python
-from math import sin, cos, pi, sqrt, atan2, acos
+from math import sin, cos, pi, sqrt, atan2, acos, copysign, asin
 import threading
 import rclpy
 import json
 from rclpy.node import Node
 from rclpy.qos import QoSProfile
 from sensor_msgs.msg import JointState
+from geometry_msgs.msg import PoseStamped, Pose, Point, Quaternion
 from tf2_ros import TransformBroadcaster, TransformStamped
 from ament_index_python.packages import get_package_share_directory
 class StatePublisher(Node):
@@ -52,12 +53,19 @@ class StatePublisher(Node):
             self.joint_pub = self.create_publisher(JointState, 'joint_states', qos_profile)
             self.broadcaster = TransformBroadcaster(self, qos=qos_profile)
             self.nodeName = self.get_name()
-            self.get_logger().info("{0} started".format(self.nodeName))
-            self.declare_parameter('x', 0.5)
-            self.declare_parameter('y', 0)
-            self.declare_parameter('z', 0.5)
-            self.declare_parameter('r', 0)
 
+
+            
+            self.subscription = self.create_subscription(PoseStamped, '/PoseStamped',self.listener_callback, 4)
+            self.subscription  # prevent unused variable warning
+
+
+
+            self.get_logger().info("{0} started".format(self.nodeName))
+            self.x = 0
+            self.y = 0
+            self.z = 0
+            self.pitch = 0
             degree = pi / 180.0
             loop_rate = self.create_rate(30)
 
@@ -76,11 +84,10 @@ class StatePublisher(Node):
 
             try:
                 while rclpy.ok():
-                    x = float(self.get_parameter('x').get_parameter_value().double_value)
-                    y = float(self.get_parameter('y').get_parameter_value().double_value)
-                    z = float(self.get_parameter('z').get_parameter_value().double_value)
-                    r = float(self.get_parameter('r').get_parameter_value().integer_value)*pi/180
-
+                    x = self.x
+                    y = self.y
+                    z = self.z
+                    r = -self.pitch
                     z2 = z - self.r5*sin(r) - self.d1 - self.d2
                     l = sqrt(x*x + y*y)
                     l2 = l -  self.r5*cos(r)
@@ -104,7 +111,7 @@ class StatePublisher(Node):
                         joint_state.name = ['base-cyl', 'dummy-arm1', 'arm1-arm2', 'arm2-arm3']
                         joint_state.position = [f1, fi3a, fi4a,  fi5a]
 
-                        self.get_logger().info('Publishing: "%s"' % joint_state.position)
+                        # self.get_logger().info('Publishing: "%s"' % joint_state.position)
                         self.joint_pub.publish(joint_state)
                         self.broadcaster.sendTransform(odom_trans)
 
@@ -114,6 +121,15 @@ class StatePublisher(Node):
             except KeyboardInterrupt:
                     pass
 
+    def listener_callback(self, msg):
+        self.x = msg.pose.position.x
+        self.y = msg.pose.position.y
+        self.z = msg.pose.position.z
+        #pitch (y-axis rotation)
+        qz = 2 * (msg.pose.orientation.x * msg.pose.orientation.z + msg.pose.orientation.y * msg.pose.orientation.w)
+        qx = 1 - 2 * (msg.pose.orientation.y * msg.pose.orientation.y + msg.pose.orientation.z * msg.pose.orientation.z)
+        self.pitch = atan2(qz, qx)
+        self.get_logger().info('I heard: x: %1.2f, y: %1.2f, z: %1.2f, p: %3f' % (self.x,self.y,self.z,self.pitch*180/pi))
 def main():
     node = StatePublisher()
 
