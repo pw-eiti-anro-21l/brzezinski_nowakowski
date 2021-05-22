@@ -19,12 +19,12 @@ setup(
     zip_safe=True,
     maintainer='Gabriel Brzeziński, Kacper Nowakowski',
     maintainer_email='gabrysbrzezinski@gmail.com, casperus99@wp.pl',
-    description="Package with forwad kinematics calulations",
+    description="Package with inverse kinematics calulations",
     license='MIT License',
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'state_publisher = anro_ik.state_publisher:main',
+            'ikin = anro_ik.ikin:main',
             'oint = anro_ik.oint:main'
         ],
     },

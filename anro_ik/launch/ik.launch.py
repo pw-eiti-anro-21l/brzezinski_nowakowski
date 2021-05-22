@@ -12,7 +12,7 @@ def generate_launch_description():
                     output='screen'),
             Node(
                     package='anro_ik',
-                    executable='state_publisher',
-                    name='state_publisher',
+                    executable='ikin',
+                    name='ikin',
                     output='screen')
     ])

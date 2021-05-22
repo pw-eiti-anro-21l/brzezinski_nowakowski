@@ -62,10 +62,11 @@ class StatePublisher(Node):
 
 
             self.get_logger().info("{0} started".format(self.nodeName))
-            self.x = 0
+            self.x = 0.5
             self.y = 0
-            self.z = 0
+            self.z = 0.5
             self.pitch = 0
+            self.yaw = 1
             degree = pi / 180.0
             loop_rate = self.create_rate(30)
 
@@ -126,10 +127,12 @@ class StatePublisher(Node):
         self.y = msg.pose.position.y
         self.z = msg.pose.position.z
         #pitch (y-axis rotation)
-        qz = 2 * (msg.pose.orientation.x * msg.pose.orientation.z + msg.pose.orientation.y * msg.pose.orientation.w)
         qx = 1 - 2 * (msg.pose.orientation.y * msg.pose.orientation.y + msg.pose.orientation.z * msg.pose.orientation.z)
-        self.pitch = atan2(qz, qx)
-        self.get_logger().info('I heard: x: %1.2f, y: %1.2f, z: %1.2f, p: %3f' % (self.x,self.y,self.z,self.pitch*180/pi))
+        qy = 2 * (msg.pose.orientation.x * msg.pose.orientation.y + msg.pose.orientation.z * msg.pose.orientation.w)
+        qz = 2 * (msg.pose.orientation.x * msg.pose.orientation.z + msg.pose.orientation.y * msg.pose.orientation.w)
+        self.yaw = atan2(qy, qx)
+        self.pitch = atan2(qz, qx) 
+        self.get_logger().info('I heard: x: %1.2f, y: %1.2f, z: %1.2f, p: %3f, y: %3f' % (self.x,self.y,self.z,self.pitch*180/pi,self.yaw*180/pi))
 def main():
     node = StatePublisher()
 
