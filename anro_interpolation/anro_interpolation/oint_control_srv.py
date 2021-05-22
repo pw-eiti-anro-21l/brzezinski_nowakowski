@@ -17,7 +17,7 @@ class MinimalService(Node):
     def __init__(self):
         super().__init__('minimal_service')
         if first:
-            self.starting_XYZ_RPY = [0, 0, 0, 0, 0, 0]
+            self.starting_XYZ_RPY = [0.5, 0, 0.5, 0, 0, 0]
         self.srv = self.create_service(Oint, 'interpolacja_operacyjna', self.operation_interpolation_callback)
 
     def operation_interpolation_callback(self, request, response):

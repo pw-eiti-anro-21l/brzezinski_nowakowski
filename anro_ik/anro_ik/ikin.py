@@ -66,7 +66,7 @@ class StatePublisher(Node):
             self.y = 0
             self.z = 0.5
             self.pitch = 0
-            self.yaw = 1
+            self.yaw = 0
             degree = pi / 180.0
             loop_rate = self.create_rate(30)
 
