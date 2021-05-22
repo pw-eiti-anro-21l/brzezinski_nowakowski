@@ -6,6 +6,8 @@ Panels:
       Expanded:
         - /TF1/Frames1
         - /TF1/Tree1
+        - /RobotModel1/Links1
+        - /RobotModel1/Links1/tool1
       Splitter Ratio: 0.5
     Tree Height: 777
   - Class: rviz_common/Selection
@@ -140,13 +142,32 @@ Visualization Manager:
         tool:
           Alpha: 1
           Show Axes: false
-          Show Trail: false
+          Show Trail: true
           Value: true
       Name: RobotModel
       TF Prefix: ""
       Update Interval: 0
       Value: true
       Visual Enabled: true
+    - Alpha: 1
+      Axes Length: 1
+      Axes Radius: 0.10000000149011612
+      Class: rviz_default_plugins/Pose
+      Color: 255; 0; 255
+      Enabled: true
+      Head Length: 0.10000000149011612
+      Head Radius: 0.10000000149011612
+      Name: Pose
+      Shaft Length: 0.10000000149011612
+      Shaft Radius: 0.03999999910593033
+      Shape: Arrow
+      Topic:
+        Depth: 5
+        Durability Policy: Volatile
+        History Policy: Keep Last
+        Reliability Policy: Reliable
+        Value: /PoseStamped
+      Value: true
   Enabled: true
   Global Options:
     Background Color: 48; 48; 48
@@ -190,25 +211,25 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz_default_plugins/Orbit
-      Distance: 2.0901410579681396
+      Distance: 1.9723248481750488
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: 0.4080039858818054
-        Y: 0.7172948122024536
-        Z: 0.057235389947891235
+        X: 0.40783199667930603
+        Y: 0.5628929734230042
+        Z: 0.15366198122501373
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.12479766458272934
+      Pitch: 0.7747975587844849
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz)
-      Yaw: 4.489919662475586
+      Yaw: 0.6567330360412598
     Saved: ~
 Window Geometry:
   Displays:
@@ -224,5 +245,5 @@ Window Geometry:
   Views:
     collapsed: true
   Width: 1280
-  X: 1920
-  Y: 23
+  X: 1928
+  Y: 31
