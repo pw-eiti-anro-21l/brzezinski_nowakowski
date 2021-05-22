@@ -13,7 +13,7 @@ class StatePublisher(Node):
 
     def __init__(self):
             rclpy.init()
-            super().__init__('state_publisher')
+            super().__init__('ikin')
 
             # wczytanie tabeli DH
             package_share_directory = get_package_share_directory('anro_manipulator')
