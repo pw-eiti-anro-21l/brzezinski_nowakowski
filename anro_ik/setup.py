@@ -24,7 +24,8 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'state_publisher = anro_ik.state_publisher:main'
+            'state_publisher = anro_ik.state_publisher:main',
+            'oint = anro_ik.oint:main'
         ],
     },
 )
