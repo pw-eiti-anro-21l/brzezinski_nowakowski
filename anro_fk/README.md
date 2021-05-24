@@ -1,4 +1,4 @@
-# anro_manipulator
+# anro_fk
 Paczka stworzona na potrzeby trzecich laboratoriów. Znajdują się w niej Node'y do liczenia kinematyki prostej manipulatora.
 ## Usage  
 - `state_publisher`  
