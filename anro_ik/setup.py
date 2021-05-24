@@ -26,7 +26,7 @@ setup(
         'console_scripts': [
             'ikin = anro_ik.ikin:main',
             'oint_control_srv = anro_ik.oint_control_srv:main',
-            'oint = anro_ik.oint:main'
+            'oint = anro_ik.oint:main',
             'oint2 = anro_ik.oint2:main'
         ],
     },
