@@ -9,12 +9,17 @@ Paczka stworzona na potrzeby piątych laboratoriów. Znajdują się w niej Node'
 - `oint.py`  
   Przyjmuje kolejno argumenty: współrzędna x, współrzędna y, współrzędna z, pitch, czas, rodzaj interpolacji. Na ich podstawie wysyła żądanie do serwisu `interpolacja_operacyjna`.
   ```
-  ros2 run anro_ik oint ${x} ${y} ${z} ${pitch} ${time} ${interpolation type}
+  ros2 run anro_ik oint ${a} ${b} ${time} ${trajectory}
   ```
-  Przykład:
+  Przykłady:
   ```
-  ros2 run anro_ik oint 0.5 0.5 0.5 90 1 lin
+  ros2 run anro_ik oint 0.2 0.2 10 rec
   ```
+  ![RECTANGLE](https://github.com/pw-eiti-anro-21l/brzezinski_nowakowski/blob/main/anro_ik/docs/rectangle.png?raw=true)
+  ```
+  ros2 run anro_ik oint 0.3 0.2 20 ell
+  ```
+  ![ELLIPSE](https://github.com/pw-eiti-anro-21l/brzezinski_nowakowski/blob/main/anro_ik/docs/ellipse.png?raw=true)
 ### Launch files
 - `ik.launch.py`  
   Uruchamia `ikin` z paczki `anro_ik` oraz `oint_control_srv` z paczki 'anro_interpolation`
