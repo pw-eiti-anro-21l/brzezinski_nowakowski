@@ -1,4 +1,4 @@
-# anro_interpolation
+# anro_ik
 Paczka stworzona na potrzeby piątych laboratoriów. Znajdują się w niej Node'y do liczenia kinematyki odwrotnej manipulatora.
 ## Usage
 ### Nodes
