@@ -1,5 +1,5 @@
 # anro_interpolation
-Paczka stworzona na potrzeby trzecich laboratoriów. Dostarcza ona node'y interpolujące w przestrzeni konfiguracyjnej i operacyjnej.
+Paczka stworzona na potrzeby czwartych laboratoriów. Dostarcza ona node'y interpolujące w przestrzeni konfiguracyjnej i operacyjnej.
 ## Usage
 ### Nodes
 - `jint_control_srv.py`  
@@ -17,7 +17,7 @@ Paczka stworzona na potrzeby trzecich laboratoriów. Dostarcza ona node'y interp
   Interpolacja wielomianowa:
   ![RQT_OINT_POL](docs/rqt_plot_oint_pol.png)
 - `oint.py`  
-  Przyjmuje kolejno argumenty: współrzędna x, współrzędna y, współrzędna z, roll, pitch, yaw. Na ich podstawie wysyła żądanie do serwisu `interpolacja_operacyjna`.
+  Przyjmuje kolejno argumenty: współrzędna x, współrzędna y, współrzędna z, roll, pitch, yaw, czas, rodzaj interpolacji. Na ich podstawie wysyła żądanie do serwisu `interpolacja_operacyjna`.
 ### Launch files
 - `jint.launch.py`  
   Uruchamia `jint_control_srv.py`
@@ -25,6 +25,13 @@ Paczka stworzona na potrzeby trzecich laboratoriów. Dostarcza ona node'y interp
 - `oint.launch.py`  
   Uruchamia `oint_control_srv.py`
   ![RQT_OINT](docs/rviz_oint.png)
+
+## Topics
+### Published topics
+- `/joint_states`
+- `/tf`
+- `/Path`
+- `/PoseStamped`
 
 ## Services
 ### Service server

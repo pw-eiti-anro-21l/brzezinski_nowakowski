@@ -17,12 +17,12 @@ class MinimalService(Node):
     def __init__(self):
         super().__init__('minimal_service')
         if first:
-            self.starting_XYZ_RPY = [0, 0, 0, 0, 0, 0]
+            self.starting_XYZ_RPY = [0.5, 0, 0.5, 0, 0, 0]
         self.srv = self.create_service(Oint, 'interpolacja_operacyjna', self.operation_interpolation_callback)
 
     def operation_interpolation_callback(self, request, response):
         self.get_logger().info('Incoming request \n x: %f \n y: %f \n z: %f \n roll: %f \n pitch: %f \n yaw: %f \n time: %f \n type: %s' % (request.x, request.y, request.z, request.roll, request.pitch, request.yaw, request.time, request.inttype))
-        if request.inttype !== 'pol' and request.inttype !== 'lin':
+        if request.inttype != 'pol' and request.inttype != 'lin':
             response.result = '\n Niepowodzenie - Nieprawidłowy rodzaj interpolacji'
             return response
         if request.time <= 0:
